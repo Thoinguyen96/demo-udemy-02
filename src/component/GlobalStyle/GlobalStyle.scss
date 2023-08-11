@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+a {
+    color: black;
+}
+.app-container {
+    .header {
+        width: 100%;
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        margin: 0 auto;
+        .active {
+            color: red;
+        }
+        .log-in,
+        .sign-up {
+            height: 40px;
+            border-radius: 5px;
+            padding: 0 18px;
+            background-color: transparent;
+            &.sign-up {
+                background-color: black;
+                color: azure;
+                margin-left: 10px;
+                border: none;
+            }
+        }
+        .wrap-navbar {
+            background-color: transparent;
+            display: flex;
+            justify-content: space-between;
+        }
+        .me-auto {
+            gap: 30px;
+        }
+    }
+    .video {
+        position: fixed;
+        max-width: 100vw;
+        bottom: 0;
+        top: 0;
+    }
+    .home-container {
+        margin-top: 170px;
+        .home-content {
+            padding: 0 50px;
+            position: relative;
+            width: 50%;
+            .title {
+                font-size: 3rem;
+            }
+            .desc {
+                font-size: 1rem;
+            }
+            .btn-start {
+                background-color: black;
+                color: #fff;
+            }
+        }
+    }
+    .navbar-expand-lg .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+        display: flex;
+        justify-content: space-between;
+    }
+    .navbar-text {
+        text-decoration: none;
+        color: black;
+    }
+    .content-wrap {
+        margin: 100px 100px 0 100px;
+    }
+}
