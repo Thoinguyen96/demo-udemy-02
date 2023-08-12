@@ -1,3 +1,4 @@
+import { LogoHome, LogoRact } from "../../assets/Icons/icon";
 import "react-pro-sidebar/dist/css/styles.css";
 import {
     FaTachometerAlt,
@@ -5,7 +6,8 @@ import {
     FaList,
     FaGithub,
     FaRegLaughWink,
-    FaHeart,
+    BiLogoReact,
+    FaReact,
 } from "react-icons/fa";
 import {
     ProSidebar,
@@ -17,6 +19,8 @@ import {
     SidebarContent,
 } from "react-pro-sidebar";
 import sidebarBg from "../../assets/bg2.jpg";
+import { Link } from "react-router-dom";
+import routes from "../../configs/Configs";
 
 const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
     return (
@@ -29,7 +33,8 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
                 onToggle={handleToggleSidebar}
             >
                 <SidebarHeader>
-                    <div
+                    <Link
+                        to={"/"}
                         style={{
                             padding: "24px",
                             textTransform: "uppercase",
@@ -39,10 +44,13 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             whiteSpace: "nowrap",
+                            color: "#fff",
+                            textDecoration: "none",
                         }}
                     >
+                        <FaReact className="navbar-icon-react" />
                         NGUYỄN VĂN THỜI
-                    </div>
+                    </Link>
                 </SidebarHeader>
 
                 <SidebarContent>
@@ -57,12 +65,23 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
                     </Menu>
                     <Menu iconShape="circle">
                         <SubMenu
-                            suffix={<span className="badge yellow">3</span>}
+                            suffix={
+                                <span className="badge yellow">Tính Năng</span>
+                            }
                             icon={<FaRegLaughWink />}
                         >
-                            <MenuItem> 1</MenuItem>
-                            <MenuItem> 2</MenuItem>
-                            <MenuItem> 3</MenuItem>
+                            <MenuItem>
+                                Quản lý Users
+                                <Link to={routes.manageUser} />
+                            </MenuItem>
+                            <MenuItem>
+                                <Link to={routes.quiz} />
+                                Quảng lý bài quiz
+                            </MenuItem>
+                            <MenuItem>
+                                <Link to={routes.manageQuestion} />
+                                Quản lý câu hỏi
+                            </MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>
