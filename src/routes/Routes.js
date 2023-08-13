@@ -10,7 +10,6 @@ import ManageUser from "../component/pages/ManageUser";
 import ConfigLayout from "../component/Layout/ConfigLayout";
 import ManageQuestion from "../component/pages/ManageQuestion";
 import ManageQuiz from "../component/pages/ManageQuiz";
-console.log(routes.manageQuestion);
 const publicRoutes = [
     { path: routes.dashBoard, component: DashBoard, layout: ConfigLayout },
     { path: routes.manageUser, component: ManageUser, layout: ConfigLayout },
