@@ -1,27 +1,57 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-
+import axios from "axios";
 export function Example(props) {
     // nhận qua Props 1 object chứa 2 phần tử show và setShow
     const { show, setShow } = props;
-    const handleClose = () => setShow(false);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userName, setUserName] = useState("");
     const [image, setImage] = useState("");
-    const [role, setRole] = useState("");
+    const [role, setRole] = useState("User");
     const [previewImage, setPreviewImage] = useState("");
+    const handleClose = () => {
+        setShow(false);
+        setEmail("");
+        setPassword("");
+        setUserName("");
+        setImage("");
+        setRole("User");
+        setPreviewImage("");
+    };
+    const handleSave = async () => {
+        // let data = {
+        //     email: email,
+        //     password: password,
+        //     username: userName,
+        //     role: role,
+        //     userImage: image,
+        // };
+        const data = new FormData();
+        data.append("email", email);
+        data.append("password", password);
+        data.append("username", userName);
+        data.append("role", role);
+        data.append("userImage", image);
 
+        let res = await axios.post(
+            "http://localhost:8081/api/v1/participant",
+            data
+        );
+        console.log(res);
+    };
     const handlePreviewImage = (even) => {
         // chỗ này chưa làm logic lỗi quay lại kiểm tra
         setPreviewImage(URL.createObjectURL(even.target.files[0]));
         setImage(even.target.files[0]);
     };
+
     return (
         <>
             <Modal show={show} onHide={setShow} backdrop="static" size="lg">
-                <Modal.Header closeButton>
+                <Modal.Header closeButton onClick={handleClose}>
                     <Modal.Title>Add new user</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -115,7 +145,10 @@ export function Example(props) {
                                     {previewImage ? (
                                         <img src={previewImage} />
                                     ) : (
-                                        <span>Preview Image</span>
+                                        <span>
+                                            <FcAddImage />
+                                            Preview Image
+                                        </span>
                                     )}
                                 </div>
                             </div>
@@ -126,7 +159,7 @@ export function Example(props) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={handleSave}>
                         Save
                     </Button>
                 </Modal.Footer>
