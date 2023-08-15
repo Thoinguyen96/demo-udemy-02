@@ -1,17 +1,5 @@
-import { useEffect, useState } from "react";
-import { getAllUser } from "../../../services/apiServices";
-
-export function TableUser() {
-    const [listUser, setListUser] = useState([]);
-    useEffect(() => {
-        fetchListUsers();
-    }, []);
-    const fetchListUsers = async () => {
-        const res = await getAllUser();
-        if (res.EC === 0) {
-            setListUser(res.DT);
-        }
-    };
+export function TableUser(props) {
+    const listUser = props.listUser;
     return (
         <>
             <table className="table table-bordered table-hover">
@@ -30,19 +18,21 @@ export function TableUser() {
                         listUser.map((item, index) => {
                             return (
                                 <tr key={`No-${index}`}>
-                                    <th scope="row">{index + 1}</th>
+                                    <th scope="row">{item.id}</th>
                                     <td>{item.username}</td>
                                     <td>{item.email}</td>
                                     <td>{item.role}</td>
-                                    <button className="btn btn-info">
-                                        View
-                                    </button>
-                                    <button className="btn btn-warning mx-3">
-                                        Update
-                                    </button>
-                                    <button className="btn btn-danger">
-                                        Delete
-                                    </button>
+                                    <td>
+                                        <button className="btn btn-info">
+                                            View
+                                        </button>
+                                        <button className="btn btn-warning mx-3">
+                                            Update
+                                        </button>
+                                        <button className="btn btn-danger">
+                                            Delete
+                                        </button>
+                                    </td>
                                 </tr>
                             );
                         })}

@@ -1,13 +1,24 @@
-import { useState } from "react";
 import { Example } from "../Admin/content/Modal";
 import { TableUser } from "../Admin/content/TableUser";
-
+import { useEffect, useState } from "react";
+import { getAllUser } from "../../services/apiServices";
 function ManageUser() {
+    const [listUser, setListUser] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const handleShows = () => {
         setShowModal(true);
     };
 
+    useEffect(() => {
+        fetchListUsers();
+    }, []);
+
+    const fetchListUsers = async () => {
+        const res = await getAllUser();
+        if (res.EC === 0) {
+            setListUser(res.DT);
+        }
+    };
     return (
         <div>
             <div>ManageUser page</div>
@@ -15,9 +26,13 @@ function ManageUser() {
                 Add user
             </button>
             <div>
-                <TableUser />
+                <TableUser listUser={listUser} />
             </div>
-            <Example show={showModal} setShow={setShowModal} />
+            <Example
+                show={showModal}
+                setShow={setShowModal}
+                fetchListUsers={fetchListUsers}
+            />
         </div>
     );
 }
