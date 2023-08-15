@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import axios from "axios";
+import { toast } from "react-toastify";
+import { postCreateNewUser } from "../../services/apiServices";
 export function Example(props) {
     // nhận qua Props 1 object chứa 2 phần tử show và setShow
     const { show, setShow } = props;
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userName, setUserName] = useState("");
@@ -22,25 +22,40 @@ export function Example(props) {
         setPreviewImage("");
     };
     const handleSave = async () => {
-        // let data = {
-        //     email: email,
-        //     password: password,
-        //     username: userName,
-        //     role: role,
-        //     userImage: image,
-        // };
-        const data = new FormData();
-        data.append("email", email);
-        data.append("password", password);
-        data.append("username", userName);
-        data.append("role", role);
-        data.append("userImage", image);
+        const isvalidateEmail = validateEmail(email);
+        if (!isvalidateEmail && !password) {
+            toast.error("Invalid Email and Password");
+            return;
+        } else if (!isvalidateEmail) {
+            toast.error("Invalid Email");
+            return;
+        }
+        if (!password) {
+            toast.error("Invalid password");
+            return;
+        }
 
-        let res = await axios.post(
-            "http://localhost:8081/api/v1/participant",
-            data
+        let data = await postCreateNewUser(
+            email,
+            password,
+            userName,
+            role,
+            image
         );
-        console.log(res);
+        if (data && data.EC === 0) {
+            toast.success(data.EM);
+            handleClose();
+        }
+        if (data && data.EC !== 0) {
+            toast.error(data.EM);
+        }
+    };
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
     };
     const handlePreviewImage = (even) => {
         // chỗ này chưa làm logic lỗi quay lại kiểm tra
@@ -145,10 +160,7 @@ export function Example(props) {
                                     {previewImage ? (
                                         <img src={previewImage} />
                                     ) : (
-                                        <span>
-                                            <FcAddImage />
-                                            Preview Image
-                                        </span>
+                                        <span>Preview Image</span>
                                     )}
                                 </div>
                             </div>
