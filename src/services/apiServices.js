@@ -8,3 +8,6 @@ export const postCreateNewUser = (email, password, userName, role, image) => {
     data.append("userImage", image);
     return instance.post("api/v1/participant", data);
 };
+export const getAllUser = () => {
+    return instance.get("api/v1/participant/all");
+};

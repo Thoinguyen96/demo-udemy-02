@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { postCreateNewUser } from "../../services/apiServices";
+import { postCreateNewUser } from "../../../services/apiServices";
 export function Example(props) {
     // nhận qua Props 1 object chứa 2 phần tử show và setShow
     const { show, setShow } = props;

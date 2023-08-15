@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Example } from "../Layout/Modal";
+import { Example } from "../Admin/content/Modal";
+import { TableUser } from "../Admin/content/TableUser";
 
 function ManageUser() {
     const [showModal, setShowModal] = useState(false);
@@ -13,7 +14,9 @@ function ManageUser() {
             <button onClick={handleShows} className="btn-primary">
                 Add user
             </button>
-            <div>content ManageUser </div>
+            <div>
+                <TableUser />
+            </div>
             <Example show={showModal} setShow={setShowModal} />
         </div>
     );
