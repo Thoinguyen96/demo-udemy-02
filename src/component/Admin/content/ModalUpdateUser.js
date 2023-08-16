@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { postCreateNewUser } from "../../../services/apiServices";
+import { putUpdateUser } from "../../../services/apiServices";
 
 import _ from "lodash"; //thu vien giup kiem tra array rong
 export function ModalUpdateUser(props) {
     // nhận qua Props 1 object chứa 2 phần tử show và setShow
-    const { show, setShow, dataUserUpdate } = props;
+    const { show, setShow, dataUserUpdate, setDataUserUpdate } = props;
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userName, setUserName] = useState("");
@@ -35,6 +35,7 @@ export function ModalUpdateUser(props) {
         setImage("");
         setRole("User");
         setPreviewImage("");
+        setDataUserUpdate({});
     };
     const handleSave = async () => {
         const isvalidateEmail = validateEmail(email);
@@ -45,14 +46,9 @@ export function ModalUpdateUser(props) {
             toast.error("Invalid Email");
             return;
         }
-        if (!password) {
-            toast.error("Invalid password");
-            return;
-        }
 
-        let data = await postCreateNewUser(
-            email,
-            password,
+        let data = await putUpdateUser(
+            dataUserUpdate.id,
             userName,
             role,
             image

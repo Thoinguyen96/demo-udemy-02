@@ -46,6 +46,8 @@ function ManageUser() {
             />
 
             <ModalUpdateUser
+                setDataUserUpdate={setDataUserUpdate}
+                fetchListUsers={fetchListUsers}
                 dataUserUpdate={dataUserUpdate}
                 show={showModalUpdateUser}
                 setShow={setShowModalUpdateUser}
