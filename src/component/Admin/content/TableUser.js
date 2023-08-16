@@ -1,11 +1,14 @@
 export function TableUser(props) {
     const listUser = props.listUser;
+    const handleDeleteUser = (props) => {
+        return;
+    };
     return (
         <>
             <table className="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">No</th>
+                        <th scope="col">ID</th>
                         <th scope="col">UserName</th>
                         <th scope="col">Email</th>
                         <th scope="col">Role</th>
@@ -26,10 +29,18 @@ export function TableUser(props) {
                                         <button className="btn btn-info">
                                             View
                                         </button>
-                                        <button className="btn btn-warning mx-3">
+                                        <button
+                                            onClick={() =>
+                                                props.handleUpdateUser(item)
+                                            }
+                                            className="btn btn-warning mx-3"
+                                        >
                                             Update
                                         </button>
-                                        <button className="btn btn-danger">
+                                        <button
+                                            onClick={handleDeleteUser}
+                                            className="btn btn-danger"
+                                        >
                                             Delete
                                         </button>
                                     </td>

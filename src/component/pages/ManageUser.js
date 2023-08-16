@@ -2,13 +2,21 @@ import { Example } from "../Admin/content/Modal";
 import { TableUser } from "../Admin/content/TableUser";
 import { useEffect, useState } from "react";
 import { getAllUser } from "../../services/apiServices";
+import { ModalUpdateUser } from "../Admin/content/ModalUpdateUser";
 function ManageUser() {
     const [listUser, setListUser] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
+    const [dataUserUpdate, setDataUserUpdate] = useState({});
+
     const handleShows = () => {
         setShowModal(true);
     };
 
+    const handleUpdateUser = (item) => {
+        setShowModalUpdateUser(true);
+        setDataUserUpdate(item);
+    };
     useEffect(() => {
         fetchListUsers();
     }, []);
@@ -26,12 +34,21 @@ function ManageUser() {
                 Add user
             </button>
             <div>
-                <TableUser listUser={listUser} />
+                <TableUser
+                    listUser={listUser}
+                    handleUpdateUser={handleUpdateUser}
+                />
             </div>
             <Example
                 show={showModal}
                 setShow={setShowModal}
                 fetchListUsers={fetchListUsers}
+            />
+
+            <ModalUpdateUser
+                dataUserUpdate={dataUserUpdate}
+                show={showModalUpdateUser}
+                setShow={setShowModalUpdateUser}
             />
         </div>
     );
