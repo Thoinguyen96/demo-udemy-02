@@ -3,11 +3,18 @@ import { TableUser } from "../Admin/content/TableUser";
 import { useEffect, useState } from "react";
 import { getAllUser } from "../../services/apiServices";
 import { ModalUpdateUser } from "../Admin/content/ModalUpdateUser";
+import { ModalViewUser } from "../Admin/content/ModalViewUser";
+import { ModalDeleteUser } from "../Admin/content/ModalDeleteUser";
 function ManageUser() {
     const [listUser, setListUser] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
+    const [showModalViewUser, setShowModalViewUser] = useState(false);
     const [dataUserUpdate, setDataUserUpdate] = useState({});
+    const [dataViewUser, setDataViewUser] = useState({});
+    const [dataDeleteUser, setDataDeleteUser] = useState({});
+
+    const [showModalDeleteUser, setShowModalDeleteUser] = useState(false);
 
     const handleShows = () => {
         setShowModal(true);
@@ -16,6 +23,14 @@ function ManageUser() {
     const handleUpdateUser = (item) => {
         setShowModalUpdateUser(true);
         setDataUserUpdate(item);
+    };
+    const handleViewUser = (item) => {
+        setShowModalViewUser(true);
+        setDataViewUser(item);
+    };
+    const handleDeleteUser = (item) => {
+        setShowModalDeleteUser(true);
+        setDataDeleteUser(item);
     };
     useEffect(() => {
         fetchListUsers();
@@ -37,6 +52,8 @@ function ManageUser() {
                 <TableUser
                     listUser={listUser}
                     handleUpdateUser={handleUpdateUser}
+                    handleViewUser={handleViewUser}
+                    handleDeleteUser={handleDeleteUser}
                 />
             </div>
             <Example
@@ -51,6 +68,17 @@ function ManageUser() {
                 dataUserUpdate={dataUserUpdate}
                 show={showModalUpdateUser}
                 setShow={setShowModalUpdateUser}
+            />
+            <ModalViewUser
+                showModalViewUser={showModalViewUser}
+                dataViewUser={dataViewUser}
+                setShowModalViewUser={setShowModalViewUser}
+                setDataViewUser={setDataViewUser}
+            />
+            <ModalDeleteUser
+                show={showModalDeleteUser}
+                setShow={setShowModalDeleteUser}
+                dataDeleteUser={dataDeleteUser}
             />
         </div>
     );
