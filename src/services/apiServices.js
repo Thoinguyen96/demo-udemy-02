@@ -19,3 +19,6 @@ export const putUpdateUser = (id, userName, role, image) => {
 export const getAllUser = () => {
     return instance.get("api/v1/participant/all");
 };
+export const deleteUser = (userId) => {
+    return instance.delete("api/v1/participant", { data: { id: userId } });
+};

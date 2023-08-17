@@ -76,6 +76,7 @@ function ManageUser() {
                 setDataViewUser={setDataViewUser}
             />
             <ModalDeleteUser
+                fetchListUsers={fetchListUsers}
                 show={showModalDeleteUser}
                 setShow={setShowModalDeleteUser}
                 dataDeleteUser={dataDeleteUser}
