@@ -12,13 +12,13 @@ function Header() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <NavLink className="navbar-text" to="/">
+                        <NavLink className="navbar-text" to={routes.home}>
                             Home
                         </NavLink>
-                        <NavLink className="navbar-text" to="/user">
+                        <NavLink className="navbar-text" to={routes.user}>
                             User
                         </NavLink>
-                        <NavLink className="navbar-text" to="/admin">
+                        <NavLink className="navbar-text" to={routes.admin}>
                             Admin
                         </NavLink>
                     </Nav>
@@ -26,8 +26,8 @@ function Header() {
                         <NavLink to={routes.login} className="btn btn-info">
                             Log-in
                         </NavLink>
-                        <NavLink to={routes.logout} className="btn btn-dark">
-                            Log-out
+                        <NavLink to={routes.signUp} className="btn btn-dark">
+                            Sign up
                         </NavLink>
 
                         {/* <NavDropdown title="Setting" id="basic-nav-dropdown">

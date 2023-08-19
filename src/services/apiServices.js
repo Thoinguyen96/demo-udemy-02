@@ -19,6 +19,12 @@ export const putUpdateUser = (id, userName, role, image) => {
 export const getAllUser = () => {
     return instance.get("api/v1/participant/all");
 };
+export const postLogin = (email, password) => {
+    return instance.post("/api/v1/login", { email, password });
+};
+export const postRegister = (email, password, username) => {
+    return instance.post("/api/v1/register", { email, password, username });
+};
 export const getPaginationUser = (page, limit) => {
     return instance.get(`api/v1/participant?page=${page}&limit=${limit}`);
 };

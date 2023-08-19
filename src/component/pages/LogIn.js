@@ -1,26 +1,42 @@
 import { useState } from "react";
+import { postLogin } from "../../services/apiServices";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import routes from "../../configs/Configs";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const handleLogIn = () => {
-        alert(1235);
+    const handleLogIn = async () => {
+        const data = await postLogin(email, password);
+        if (data && data.EC === 0) {
+            toast.success(data.EM);
+        }
+        if (data && data.EC !== 0) {
+            toast.error(data.EM);
+        }
     };
+
     return (
         <div className="login__wrap  ">
             <div className="login__header">
                 <span className="header__title desc">
                     Don't have an account yet?
                 </span>
-                <a href="#!" className="desc btn btn-outline-secondary">
+                <Link
+                    to={routes.signUp}
+                    className="desc btn btn-outline-secondary"
+                >
                     Sign Up
-                </a>
+                </Link>
                 <a className="header__help desc" href="#!">
                     Need help?
                 </a>
             </div>
             <div className="login__content col-3 mx-auto">
-                <h2 className="content__heading">Typeform</h2>
+                <Link to={routes.home} className="content__heading">
+                    Typeform
+                </Link>
                 <span className="desc content__label">Hello, who’s this?</span>
                 <div className="content__wrap">
                     <label className="desc">Email</label>

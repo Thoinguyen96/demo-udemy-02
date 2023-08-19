@@ -115,6 +115,7 @@ video.video {
     margin-top: 100px;
 }
 .login__wrap {
+    margin-top: 10px;
     width: 100%;
     .login__header {
         display: flex;
@@ -127,8 +128,14 @@ video.video {
         }
     }
     .login__content {
-        .content__label,
+        .content__label {
+            display: block;
+            text-align: center;
+        }
         .content__heading {
+            text-decoration: none;
+            font-size: 3rem;
+            font-weight: 400;
             display: block;
             text-align: center;
         }
@@ -138,7 +145,12 @@ video.video {
             text-align: center;
         }
         .content__wrap {
+            .go-home {
+                margin-top: 10px;
+                font-size: 1.5rem;
+            }
             .content__input {
+                padding: 0 10px;
                 outline: none;
                 border-radius: 3px;
                 border: 1px solid black;

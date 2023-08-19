@@ -12,8 +12,7 @@ import ConfigLayout from "../component/Layout/ConfigLayout";
 import ManageQuestion from "../component/pages/ManageQuestion";
 import ManageQuiz from "../component/pages/ManageQuiz";
 import LogIn from "../component/pages/LogIn";
-import LogOut from "../component/pages/LogOut";
-
+import SignUp from "../component/pages/SideUp";
 import AuthLayout from "../component/Layout/AuthLayout";
 
 const publicRoutes = [
@@ -23,7 +22,7 @@ const publicRoutes = [
     { path: routes.home, component: Home },
     { path: routes.user, component: User },
     { path: routes.login, component: LogIn, layout: AuthLayout },
-    { path: routes.logout, component: LogOut, layout: AuthLayout },
+    { path: routes.signUp, component: SignUp, layout: AuthLayout },
 
     { path: routes.admin, component: Admin, layout: ConfigLayout },
     {
