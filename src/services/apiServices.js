@@ -20,7 +20,7 @@ export const getAllUser = () => {
     return instance.get("api/v1/participant/all");
 };
 export const postLogin = (email, password) => {
-    return instance.post("/api/v1/login", { email, password });
+    return instance.post("/api/v1/login", { email, password, delay: 3000 });
 };
 export const postRegister = (email, password, username) => {
     return instance.post("/api/v1/register", { email, password, username });

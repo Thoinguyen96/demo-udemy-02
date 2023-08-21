@@ -1,6 +1,9 @@
 import VideoHome from "../../assets/Videos/video-homepage.mp4";
-
+import { useSelector } from "react-redux";
 function Home() {
+    const account = useSelector((state) => state.user.account);
+    const isAuthenticalted = useSelector((state) => state.user.isAuthenticalted);
+
     return (
         <div className="home-container">
             <video className="video" autoPlay muted loop>
@@ -10,8 +13,7 @@ function Home() {
                 <div className="home-content">
                     <h1 className="title">Forms that break the norm</h1>
                     <p className="desc">
-                        Get more data—like signups, feedback, and anything
-                        else—with forms designed to be{" "}
+                        Get more data—like signups, feedback, and anything else—with forms designed to be{" "}
                         <strong>refreshingly different</strong>.
                     </p>
                     <button className="btn-start">Get started—it's free</button>

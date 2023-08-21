@@ -2,9 +2,13 @@ import { NavLink } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-// import NavDropdown from "react-bootstrap/NavDropdown";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import routes from "../../configs/Configs";
+import { useSelector } from "react-redux";
 function Header() {
+    const account = useSelector((state) => state.user.account);
+    const isAuthenticalted = useSelector((state) => state.user.isAuthenticalted);
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -23,26 +27,23 @@ function Header() {
                         </NavLink>
                     </Nav>
                     <Nav>
-                        <NavLink to={routes.login} className="btn btn-info">
-                            Log-in
-                        </NavLink>
-                        <NavLink to={routes.signUp} className="btn btn-dark">
-                            Sign up
-                        </NavLink>
+                        {isAuthenticalted === false ? (
+                            <>
+                                <NavLink to={routes.login} className="btn btn-info">
+                                    Log-in
+                                </NavLink>
 
-                        {/* <NavDropdown title="Setting" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">
-                                Log in
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                Log out
-                            </NavDropdown.Item>
-
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">
-                                Profile
-                            </NavDropdown.Item>
-                        </NavDropdown> */}
+                                <NavLink to={routes.signUp} className="btn btn-dark">
+                                    Sign up
+                                </NavLink>
+                            </>
+                        ) : (
+                            <NavDropdown title="Setting" id="basic-nav-dropdown">
+                                <NavDropdown.Item href="#action/3.2">Log out</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="#action/3.4">Profile</NavDropdown.Item>
+                            </NavDropdown>
+                        )}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

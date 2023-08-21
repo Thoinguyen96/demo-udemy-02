@@ -3,30 +3,43 @@ import { postLogin } from "../../services/apiServices";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import routes from "../../configs/Configs";
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { doLogin } from "../../redux/action/userAction";
+import { ImSpinner2 } from "react-icons/im";
+import { delay } from "lodash";
+import React, { useRef } from "react";
+import LoadingBar from "react-top-loading-bar";
 function Login() {
+    const ref = useRef(null);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
     const handleLogIn = async () => {
+        ref.current.continuousStart();
+        setLoading(true);
         const data = await postLogin(email, password);
         if (data && data.EC === 0) {
+            dispatch(doLogin(data));
             toast.success(data.EM);
+            navigate("/");
+            setLoading(false);
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
+            setLoading(false);
         }
     };
 
     return (
         <div className="login__wrap  ">
+            <LoadingBar color="#f11946" ref={ref} />
             <div className="login__header">
-                <span className="header__title desc">
-                    Don't have an account yet?
-                </span>
-                <Link
-                    to={routes.signUp}
-                    className="desc btn btn-outline-secondary"
-                >
+                <span className="header__title desc">Don't have an account yet?</span>
+                <Link to={routes.signUp} className="desc btn btn-outline-secondary">
                     Sign Up
                 </Link>
                 <a className="header__help desc" href="#!">
@@ -59,8 +72,9 @@ function Login() {
                     <a href="#!" className="forgot__password desc">
                         Forgot password?
                     </a>
-                    <button onClick={handleLogIn} className="btn btn-dark">
-                        Login to Type form
+                    <button onClick={handleLogIn} className="btn btn-dark" disabled={loading}>
+                        {loading && <ImSpinner2 className="icon_loading" />}
+                        <span>Login to Type form</span>
                     </button>
                 </div>
             </div>

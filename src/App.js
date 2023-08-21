@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
 import { publicRoutes } from "./routes/Routes";
 import DefaultLayout from "./component/Layout/DefaultLayout/DefaultLayout";
-
 function App() {
     return (
         <div className="App">

@@ -7,9 +7,8 @@ html {
 body {
     font-size: 1.6rem;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+        "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -145,6 +144,12 @@ video.video {
             text-align: center;
         }
         .content__wrap {
+            .icon_loading {
+                font-size: 1.3rem;
+                margin-right: 10px;
+                animation: spinner linear 1s infinite;
+                color: aqua;
+            }
             .go-home {
                 margin-top: 10px;
                 font-size: 1.5rem;
@@ -174,4 +179,12 @@ video.video {
     font-size: 1.4rem;
     line-height: 20px;
     color: rgb(38, 38, 39);
+}
+@keyframes spinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
