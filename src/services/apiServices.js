@@ -20,13 +20,13 @@ export const getAllUser = () => {
     return instance.get("api/v1/participant/all");
 };
 export const getListQuizByUser = () => {
-    return instance.get("/api/v1/quiz-by-participant");
+    return instance.get("api/v1/quiz-by-participant");
 };
 export const postLogin = (email, password) => {
-    return instance.post("/api/v1/login", { email, password, delay: 3000 });
+    return instance.post("api/v1/login", { email, password, delay: 3000 });
 };
 export const postRegister = (email, password, username) => {
-    return instance.post("/api/v1/register", { email, password, username });
+    return instance.post("api/v1/register", { email, password, username });
 };
 export const getPaginationUser = (page, limit) => {
     return instance.get(`api/v1/participant?page=${page}&limit=${limit}`);

@@ -39,7 +39,7 @@ function Header() {
                             </>
                         ) : (
                             <NavDropdown title="Setting" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.2">Log out</NavDropdown.Item>
+                                <NavDropdown.Item href="/login">Log out</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="#action/3.4">Profile</NavDropdown.Item>
                             </NavDropdown>

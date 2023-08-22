@@ -1,28 +1,39 @@
 import { useState, useEffect } from "react";
 import { getListQuizByUser } from "../../services/apiServices";
+import "./ListQuiz.scss";
 function ListQuiz() {
     const [listQuiz, setListQuiz] = useState([]);
-    // useEffect(() => {
-    //     apiListQuiz();
-    // }, []);
-    // const apiListQuiz = async () => {
-    //     const res = await getListQuizByUser();
-    //     console.log(res);
-    // };
+    useEffect(() => {
+        apiListQuiz();
+    }, []);
+    const apiListQuiz = async () => {
+        const res = await getListQuizByUser();
+        if (res && res.EC === 0) {
+            setListQuiz(res.DT);
+        }
+    };
     return (
         <div className="list__quiz">
-            <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src=".../100px180/" alt="Card image cap" />
-                <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <p className="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the card's content.
-                    </p>
-                    <a href="#" className="btn btn-primary">
-                        Go somewhere
-                    </a>
-                </div>
-            </div>
+            {listQuiz &&
+                listQuiz.map((quiz, index) => {
+                    console.log(quiz.id);
+                    return (
+                        <div className="card" key={quiz.id}>
+                            <img
+                                className="card-img-top"
+                                src={`data:image/jpeg;base64,${quiz.image}`}
+                                alt="Card image cap"
+                            />
+                            <div className="card-body">
+                                <h5 className="card-title">{`Quiz   ${index + 1}`}</h5>
+                                <p className="card-text">{quiz.description}</p>
+                                <a href="#" className="btn btn-primary">
+                                    Start now
+                                </a>
+                            </div>
+                        </div>
+                    );
+                })}
         </div>
     );
 }
