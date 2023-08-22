@@ -19,6 +19,9 @@ export const putUpdateUser = (id, userName, role, image) => {
 export const getAllUser = () => {
     return instance.get("api/v1/participant/all");
 };
+export const getListQuizByUser = () => {
+    return instance.get("/api/v1/quiz-by-participant");
+};
 export const postLogin = (email, password) => {
     return instance.post("/api/v1/login", { email, password, delay: 3000 });
 };

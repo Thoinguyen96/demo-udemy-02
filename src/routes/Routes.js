@@ -4,8 +4,7 @@ import routes from "../configs/Configs";
 // Page
 import Home from "../component/Home/Home";
 import Admin from "../component/Admin/Admin";
-import User from "../component/User/User";
-
+import User from "../component/User/ListQuiz";
 import DashBoard from "../component/pages/DashBoard";
 import ManageUser from "../component/pages/ManageUser";
 import ConfigLayout from "../component/Layout/ConfigLayout";
