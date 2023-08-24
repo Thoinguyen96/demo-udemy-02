@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { getListQuizByUser } from "../../services/apiServices";
 import "./ListQuiz.scss";
+import { useNavigate } from "react-router-dom";
 function ListQuiz() {
+    const navigate = useNavigate();
     const [listQuiz, setListQuiz] = useState([]);
     useEffect(() => {
         apiListQuiz();
@@ -16,7 +18,6 @@ function ListQuiz() {
         <div className="list__quiz">
             {listQuiz &&
                 listQuiz.map((quiz, index) => {
-                    console.log(quiz.id);
                     return (
                         <div className="card" key={quiz.id}>
                             <img
@@ -27,9 +28,14 @@ function ListQuiz() {
                             <div className="card-body">
                                 <h5 className="card-title">{`Quiz   ${index + 1}`}</h5>
                                 <p className="card-text">{quiz.description}</p>
-                                <a href="#" className="btn btn-primary">
+                                <button
+                                    onClick={() =>
+                                        navigate(`quiz/${quiz.id}`, { state: { titleQuiz: quiz.description } })
+                                    }
+                                    className="btn btn-primary"
+                                >
                                     Start now
-                                </a>
+                                </button>
                             </div>
                         </div>
                     );

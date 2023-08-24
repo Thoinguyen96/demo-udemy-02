@@ -1,4 +1,6 @@
 const routes = {
+    detailQuiz: "user/quiz/:id",
+    notFound: "*",
     home: "/",
     user: "/user",
     admin: "/admin",

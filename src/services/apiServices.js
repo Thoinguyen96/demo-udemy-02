@@ -22,6 +22,9 @@ export const getAllUser = () => {
 export const getListQuizByUser = () => {
     return instance.get("api/v1/quiz-by-participant");
 };
+export const getQuizId = (id) => {
+    return instance.get(`api/v1/questions-by-quiz?quizId=${id}`);
+};
 export const postLogin = (email, password) => {
     return instance.post("api/v1/login", { email, password, delay: 3000 });
 };

@@ -1,3 +1,7 @@
+:root {
+    --color__default: #dc3545;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -192,4 +196,10 @@ video.video {
 }
 .list__quiz {
     margin-top: 60px;
+}
+.not-found {
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    display: flex;
 }
