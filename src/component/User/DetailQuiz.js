@@ -54,6 +54,7 @@ function DetailQuiz() {
         }
         setIndex(index + 1);
     };
+    const handleFinish = () => {};
     return (
         <div className="detail__wrap">
             <div className="detail__questions">
@@ -62,14 +63,16 @@ function DetailQuiz() {
                     Quiz: {quizId} {location?.state?.titleQuiz}.
                 </h2>
                 <div>
-                    {quizQuestions.image && (
+                    {quizQuestions.image ? (
                         <div className="image__question">
                             <img src={`data:image/jpeg;base64,${quizQuestions.image}`} />
                         </div>
+                    ) : (
+                        <div className="image__question"></div>
                     )}
 
                     <div className="answer__wrap">
-                        <span>
+                        <span className="answer__question">
                             Question {index + 1}: {quizQuestions.questionDescription}?
                         </span>
                         <div key={index} className="answer__quiz">
@@ -92,11 +95,14 @@ function DetailQuiz() {
                         </div>
                     </div>
                     <div className="next__wrap">
-                        <button onClick={handlePrev} className="btn btn-info">
+                        <button onClick={handlePrev} className="btn btn-outline-danger btn-lg">
                             Back
                         </button>
-                        <button onClick={handleNext} className="btn btn-danger">
+                        <button onClick={handleNext} className="btn btn-outline-danger btn-lg">
                             Next
+                        </button>
+                        <button onClick={handleFinish} className="btn btn-danger btn-lg">
+                            Finish
                         </button>
                     </div>
                 </div>
