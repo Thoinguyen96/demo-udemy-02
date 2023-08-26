@@ -1,16 +1,17 @@
 import _ from "lodash";
 
 function Question(props) {
-    const { quizQuestion, index, setQuizQuestion } = props;
+    const { quizQuestion, index, handleCheckbox } = props;
+    console.log(quizQuestion);
+
     const quizQuestions = quizQuestion[index];
-    console.log(quizQuestions);
     if (_.isEmpty(quizQuestions)) {
         return;
     }
-    const handleHandleCheckbox = (event, answerId, questionId) => {
-        props.handleCheckbox(answerId, questionId);
-        console.log(answerId, questionId);
-    };
+
+    // const handleHandleCheckbox = (answerId, questionId) => {
+    //     props.handleCheckbox(answerId, questionId);
+    // };
     return (
         <div>
             {quizQuestions.image ? (
@@ -34,8 +35,8 @@ function Question(props) {
                                 return (
                                     <div className="answer__selector" key={index}>
                                         <input
-                                            onChange={(event) => {
-                                                handleHandleCheckbox(event, +answer.id, +quizQuestions.questionId);
+                                            onChange={() => {
+                                                handleCheckbox(+answer.id, +quizQuestions.questionId);
                                             }}
                                             className="check-input"
                                             type="checkbox"

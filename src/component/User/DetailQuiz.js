@@ -57,25 +57,30 @@ function DetailQuiz() {
     const handleFinish = () => {};
     const handleCheckbox = (answerId, questionId) => {
         const dataQuizClone = _.cloneDeep(quizQuestion);
-        let question = dataQuizClone.find((item) => {
-            return +item.questionId === +questionId;
-        });
+        let question = dataQuizClone.find((item) => +item.questionId === +questionId);
 
         if (question && question.answers) {
             let b = question.answers.map((item) => {
                 if (+item.id === +answerId) {
                     item.isSelector = !item.isSelector;
                 }
+
                 return item;
             });
+
             question.answers = b;
         }
+        // cách 1
+        // let indexs = quizQuestion.findIndex((item) => +item.questionId === +questionId);
 
-        let indexs = dataQuizClone.findIndex((item) => +item.questionId === +questionId);
-        if (indexs > -1) {
-            dataQuizClone[indexs] = question;
-            setQuizQuestion(dataQuizClone);
-        }
+        // if (indexs > -1) {
+        //     dataQuizClone[indexs] = question;
+        //     setQuizQuestion(dataQuizClone[indexs]);
+        // }
+
+        // cách 2
+        // dataQuizClone[index] = question;
+        setQuizQuestion(dataQuizClone);
     };
     return (
         <div className="detail__wrap">
