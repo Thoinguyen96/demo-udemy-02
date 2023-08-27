@@ -54,40 +54,45 @@ function DetailQuiz() {
         }
         setIndex(index + 1);
     };
-    const handleFinish = () => {};
     const handleCheckbox = (answerId, questionId) => {
-        // cách 1
         const dataQuizClone = _.cloneDeep(quizQuestion);
-        let queId = [];
         let question = dataQuizClone.find((item) => {
-            queId.push(+item.questionId);
             return +item.questionId === +questionId;
         });
-
         question.answers.forEach((item) => {
             if (+item.id === +answerId) {
                 item.isSelector = !item.isSelector;
             }
         });
         setQuizQuestion(dataQuizClone);
-        // cách 2
-        // const dataQuizClone = _.cloneDeep(quizQuestion);
-        // let queId = [];
-        // let question = dataQuizClone.find((item) => {
-        //     queId.push(+item.questionId);
-        //     return +item.questionId === +questionId;
-        // });
-
-        // if (question && question.answers) {
-        //     question.answers.forEach((item) => {
-        //         if (+item.id === +answerId) {
-        //             item.isSelector = !item.isSelector;
-        //         }
-        //     });
-        // }
-
-        // setQuizQuestion(dataQuizClone);
     };
+
+    const handleFinish = () => {
+        const payLoad = {
+            quizId: +quizId,
+            answers: [],
+        };
+
+        let answers = [];
+
+        if (quizQuestion && quizQuestion.length > 0) {
+            quizQuestion.forEach((question) => {
+                let questionId = +question.questionId;
+                let answerId = [];
+
+                question.answers.forEach((answer) => {
+                    if (answer.isSelector === true) {
+                        answerId.push(answer.id);
+                    }
+                });
+
+                answers.push({ questionId, answerId });
+            });
+        }
+        payLoad.answers = answers;
+        console.log("payLoad", payLoad);
+    };
+
     return (
         <div className="detail__wrap">
             <div className="detail__questions">
