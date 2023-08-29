@@ -2,7 +2,6 @@ import _ from "lodash";
 
 function Question(props) {
     const { quizQuestion, index, handleCheckbox } = props;
-    console.log(quizQuestion);
 
     const quizQuestions = quizQuestion[index];
     if (_.isEmpty(quizQuestions)) {

@@ -1,0 +1,13 @@
+.content__wrap-show {
+    margin: 20px;
+
+    .QuizManage__wrap {
+        .border.p-2 {
+            border-radius: 5px;
+            .form-control {
+                height: 60px;
+                line-height: 3.25;
+            }
+        }
+    }
+}

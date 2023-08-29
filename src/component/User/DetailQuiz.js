@@ -1,12 +1,16 @@
 import { useParams, useLocation } from "react-router-dom";
-import { getQuizId } from "../../services/apiServices";
+import { getQuizId, postSubmitQuiz } from "../../services/apiServices";
 import { useEffect, useState } from "react";
 import _ from "lodash";
 import Question from "./Question";
+import { ModalResult } from "./ModalResult";
 function DetailQuiz() {
     const location = useLocation();
     const [quizQuestion, setQuizQuestion] = useState([]);
     const [index, setIndex] = useState(0);
+    const [isShowModalResult, setIsShowModalResult] = useState(false);
+    const [dataAnswersResult, setDataAnswersResult] = useState([]);
+
     const params = useParams();
     const quizId = params.id;
     useEffect(() => {
@@ -55,6 +59,7 @@ function DetailQuiz() {
         setIndex(index + 1);
     };
     const handleCheckbox = (answerId, questionId) => {
+        // cách 1
         const dataQuizClone = _.cloneDeep(quizQuestion);
         let question = dataQuizClone.find((item) => {
             return +item.questionId === +questionId;
@@ -65,32 +70,59 @@ function DetailQuiz() {
             }
         });
         setQuizQuestion(dataQuizClone);
+        // cách 2
+        // const dataQuizClone = _.cloneDeep(quizQuestion);
+        // let queId = [];
+        // let question = dataQuizClone.find((item) => {
+        //     queId.push(+item.questionId);
+        //     return +item.questionId === +questionId;
+        // });
+
+        // if (question && question.answers) {
+        //     question.answers.forEach((item) => {
+        //         if (+item.id === +answerId) {
+        //             item.isSelector = !item.isSelector;
+        //         }
+        //     });
+        // }
+
+        // setQuizQuestion(dataQuizClone);
     };
 
-    const handleFinish = () => {
-        const payLoad = {
+    const handleFinish = async () => {
+        let payLoad = {
             quizId: +quizId,
             answers: [],
         };
 
-        let answers = [];
-
         if (quizQuestion && quizQuestion.length > 0) {
             quizQuestion.forEach((question) => {
                 let questionId = +question.questionId;
-                let answerId = [];
+                let userAnswerId = [];
 
                 question.answers.forEach((answer) => {
                     if (answer.isSelector === true) {
-                        answerId.push(answer.id);
+                        userAnswerId.push(answer.id);
                     }
                 });
 
-                answers.push({ questionId, answerId });
+                payLoad.answers.push({ questionId, userAnswerId });
             });
         }
-        payLoad.answers = answers;
-        console.log("payLoad", payLoad);
+
+        let response = await postSubmitQuiz(payLoad);
+        console.log("response", response);
+
+        if (response && response.EC === 0) {
+            setIsShowModalResult(true);
+
+            setDataAnswersResult({
+                countCorrect: response.DT.countCorrect,
+                countTotal: response.DT.countTotal,
+            });
+        } else {
+            alert("lỗi rồi mày");
+        }
     };
 
     return (
@@ -116,6 +148,11 @@ function DetailQuiz() {
                 </div>
             </div>
             <div className="detail__answer">answer-right</div>
+            <ModalResult
+                show={isShowModalResult}
+                setShow={setIsShowModalResult}
+                dataAnswersResult={dataAnswersResult}
+            />
         </div>
     );
 }

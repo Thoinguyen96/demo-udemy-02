@@ -35,13 +35,7 @@ export function Example(props) {
             return;
         }
 
-        let data = await postCreateNewUser(
-            email,
-            password,
-            userName,
-            role,
-            image
-        );
+        let data = await postCreateNewUser(email, password, userName, role, image);
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
@@ -76,77 +70,51 @@ export function Example(props) {
                     {
                         <form className="row g-3">
                             <div className="col-md-6">
-                                <label
-                                    htmlFor="inputEmail4"
-                                    className="form-label"
-                                >
+                                <label htmlFor="inputEmail4" className="form-label">
                                     Email
                                 </label>
                                 <input
                                     type="email"
                                     className="form-control"
                                     value={email}
-                                    onChange={(even) =>
-                                        setEmail(even.target.value)
-                                    }
+                                    onChange={(even) => setEmail(even.target.value)}
                                 />
                             </div>
                             <div className="col-md-6">
-                                <label
-                                    htmlFor="inputPassword4"
-                                    className="form-label"
-                                >
+                                <label htmlFor="inputPassword4" className="form-label">
                                     Password
                                 </label>
                                 <input
                                     type="password"
                                     className="form-control"
                                     value={password}
-                                    onChange={(even) =>
-                                        setPassword(even.target.value)
-                                    }
+                                    onChange={(even) => setPassword(even.target.value)}
                                 />
                             </div>
 
                             <div className="col-md-6">
-                                <label
-                                    htmlFor="inputCity"
-                                    className="form-label"
-                                >
+                                <label htmlFor="inputCity" className="form-label">
                                     User name
                                 </label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     value={userName}
-                                    onChange={(even) =>
-                                        setUserName(even.target.value)
-                                    }
+                                    onChange={(even) => setUserName(even.target.value)}
                                 />
                             </div>
                             <div className="col-md-4">
-                                <label
-                                    htmlFor="inputState"
-                                    className="form-label"
-                                >
+                                <label htmlFor="inputState" className="form-label">
                                     role
                                 </label>
-                                <select
-                                    className="form-select"
-                                    onChange={(even) =>
-                                        setRole(even.target.value)
-                                    }
-                                >
+                                <select className="form-select" onChange={(even) => setRole(even.target.value)}>
                                     <option value="User">User</option>
                                     <option value="Admin">Admin</option>
                                 </select>
                             </div>
                             <div className="wrap-preview-image">
                                 <div className="wrap-preview-small">
-                                    <label
-                                        htmlFor="inputState"
-                                        className="form-label-image"
-                                    >
+                                    <label htmlFor="inputState" className="form-label-image">
                                         Upload Image
                                     </label>
                                     <input
@@ -154,17 +122,11 @@ export function Example(props) {
                                         className="form-control"
                                         id="inputState"
                                         hidden
-                                        onChange={(even) =>
-                                            handlePreviewImage(even)
-                                        }
+                                        onChange={(even) => handlePreviewImage(even)}
                                     />
                                 </div>
                                 <div className="preview-image">
-                                    {previewImage ? (
-                                        <img src={previewImage} />
-                                    ) : (
-                                        <span>Preview Image</span>
-                                    )}
+                                    {previewImage ? <img src={previewImage} /> : <span>Preview Image</span>}
                                 </div>
                             </div>
                         </form>

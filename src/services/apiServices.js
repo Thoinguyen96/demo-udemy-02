@@ -31,6 +31,17 @@ export const postLogin = (email, password) => {
 export const postRegister = (email, password, username) => {
     return instance.post("api/v1/register", { email, password, username });
 };
+export const postSubmitQuiz = (data) => {
+    return instance.post("api/v1/quiz-submit", { ...data });
+};
+export const postCreateQuiz = (description, name, difficulty, image) => {
+    const data = new FormData();
+    data.append("description", description);
+    data.append("name", name);
+    data.append("difficulty", difficulty);
+    data.append("quizImage", image);
+    return instance.post("api/v1/quiz", data);
+};
 export const getPaginationUser = (page, limit) => {
     return instance.get(`api/v1/participant?page=${page}&limit=${limit}`);
 };
