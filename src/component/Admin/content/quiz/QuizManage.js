@@ -24,12 +24,27 @@ function QuizManage(props) {
             toast.error("Name/description is require");
             return;
         }
-        const res = await postCreateQuiz(description, name, type?.value, image);
-        console.log(res.EC);
-        if (res && res.EC === 0) {
+
+        // let response = await postCreateQuiz(description, image, type?.value, name);
+        // if (response && response.EC === 0) {
+        //     toast.success(response.EM);
+        //     setImage(null);
+        //     setType("");
+        //     setName("");
+        //     setDescription("");
+        // } else {
+        //     toast.error(response.EM);// part response.EM failed
+        // }
+        try {
+            const res = await postCreateQuiz(description, image, type?.value, name);
+            console.log(res);
             toast.success(res.EM);
-        } else {
-            toast.error(res.EM);
+            setImage(null);
+            setType("");
+            setName("");
+            setDescription("");
+        } catch {
+            toast.error("No files were uploaded.");
         }
     };
     return (
@@ -59,8 +74,11 @@ function QuizManage(props) {
                     <label>Description</label>
                 </div>
                 <div className="more__action">
+                    <label htmlFor="Upload__file" className="btn btn-outline-primary">
+                        Choose File
+                    </label>
                     <label>Upload image</label>
-                    <input type="file" onChange={(event) => handleChooseFile(event)} />
+                    <input hidden id="Upload__file" type="file" onChange={(event) => handleChooseFile(event)} />
                     <div className="mt-3">
                         <Select defaultValue={type} onChange={setType} placeholder="Quiz type..." options={options} />
                     </div>

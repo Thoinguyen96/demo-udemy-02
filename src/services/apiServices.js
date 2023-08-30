@@ -34,7 +34,7 @@ export const postRegister = (email, password, username) => {
 export const postSubmitQuiz = (data) => {
     return instance.post("api/v1/quiz-submit", { ...data });
 };
-export const postCreateQuiz = (description, name, difficulty, image) => {
+export const postCreateQuiz = (description, image, difficulty, name) => {
     const data = new FormData();
     data.append("description", description);
     data.append("name", name);
