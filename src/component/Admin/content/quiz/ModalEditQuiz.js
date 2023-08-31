@@ -1,75 +1,48 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { putEditQuiz } from "../../../../services/apiServices";
 import { toast } from "react-toastify";
-import { putUpdateUser } from "../../../services/apiServices";
-
-import _ from "lodash"; //thu vien giup kiem tra array rong
-export function ModalUpdateUser(props) {
-    // nhận qua Props 1 object chứa 2 phần tử show và setShow
-    const { show, setShow, dataUserUpdate, setDataUserUpdate } = props;
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [userName, setUserName] = useState("");
-    const [image, setImage] = useState("");
-    const [role, setRole] = useState("User");
+import { useEffect } from "react";
+import _ from "lodash";
+function ModalEditQuiz(props) {
+    const { show, dataQuiz, setShowModalEditQuiz, fetchAllQuiz } = props;
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [type, setType] = useState("");
+    const [image, setImage] = useState(null);
     const [previewImage, setPreviewImage] = useState("");
-
     useEffect(() => {
-        if (!_.isEmpty(dataUserUpdate)) {
-            setEmail(dataUserUpdate.email);
-            setUserName(dataUserUpdate.username);
-            setImage("");
-            setRole(dataUserUpdate.role);
-            if (dataUserUpdate.image) {
-                setPreviewImage(`data:image/png;base64,${dataUserUpdate.image}`);
+        if (!_.isEmpty(dataQuiz)) {
+            setName(dataQuiz.name);
+            setDescription(dataQuiz.description);
+            setType(dataQuiz.difficulty);
+            if (dataQuiz.image) {
+                setPreviewImage(`data:image/png;base64,${dataQuiz.image}`);
             }
         }
-    }, [dataUserUpdate]);
-    const handleClose = (props) => {
-        setShow(false);
-        setEmail("");
-        setPassword("");
-        setUserName("");
-        setImage("");
-        setRole("User");
-        setPreviewImage("");
-        setDataUserUpdate({});
-    };
-    const handleSave = async () => {
-        const isvalidateEmail = validateEmail(email);
-        if (!isvalidateEmail && !password) {
-            toast.error("Invalid Email and Password");
-            return;
-        } else if (!isvalidateEmail) {
-            toast.error("Invalid Email");
-            return;
-        }
-
-        let data = await putUpdateUser(dataUserUpdate.id, userName, role, image);
-        if (data && data.EC === 0) {
-            toast.success(data.EM);
-            handleClose();
-            // await props.fetchListUsers();
-            await props.fetchListUsersWithPaginate(1);
-            props.setCurrentPage(1);
-        }
-        if (data && data.EC !== 0) {
-            toast.error(data.EM);
-        }
-    };
-    const validateEmail = (email) => {
-        return String(email)
-            .toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
+    }, [dataQuiz]);
+    const handleClose = () => {
+        setShowModalEditQuiz(false);
     };
     const handlePreviewImage = (even) => {
-        // chỗ này chưa làm logic lỗi quay lại kiểm tra
         setPreviewImage(URL.createObjectURL(even.target.files[0]));
         setImage(even.target.files[0]);
+
+        // this.setState({[e.target.name]: URL.createObjectURL(e.target.files[0])})
     };
+    const handleSave = async () => {
+        let res = await putEditQuiz(dataQuiz.id, type, name, description, image);
+        if (res && res.EC === 0) {
+            toast.success(res.EM);
+            setShowModalEditQuiz(false);
+
+            await fetchAllQuiz();
+        } else {
+            toast.error(res.EM);
+        }
+    };
+
     return (
         <>
             <Modal show={show} onHide={props.setCloseModalUpdate} backdrop="static" size="lg">
@@ -81,26 +54,24 @@ export function ModalUpdateUser(props) {
                         <form className="row g-3">
                             <div className="col-md-6">
                                 <label htmlFor="inputEmail4" className="form-label">
-                                    Email
+                                    Name
                                 </label>
                                 <input
-                                    disabled
-                                    type="email"
+                                    type="text"
                                     className="form-control"
-                                    value={email}
-                                    onChange={(even) => setEmail(even.target.value)}
+                                    value={name}
+                                    onChange={(even) => setName(even.target.value)}
                                 />
                             </div>
                             <div className="col-md-6">
                                 <label htmlFor="inputPassword4" className="form-label">
-                                    Password
+                                    Description
                                 </label>
                                 <input
-                                    disabled
-                                    type="password"
+                                    type="text"
                                     className="form-control"
-                                    value={password}
-                                    onChange={(even) => setPassword(even.target.value)}
+                                    value={description}
+                                    onChange={(even) => setDescription(even.target.value)}
                                 />
                             </div>
 
@@ -111,17 +82,29 @@ export function ModalUpdateUser(props) {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    value={userName}
-                                    onChange={(even) => setUserName(even.target.value)}
+                                    value={description}
+                                    onChange={(even) => setDescription(even.target.value)}
                                 />
                             </div>
                             <div className="col-md-4">
                                 <label htmlFor="inputState" className="form-label">
-                                    role
+                                    DIFFICULITY
                                 </label>
-                                <select className="form-select" onChange={(even) => setRole(even.target.value)}>
-                                    <option value="User">User</option>
-                                    <option value="Admin">Admin</option>
+
+                                <select
+                                    className="form-select"
+                                    onChange={(even) => setType(even.target.value)}
+                                    aria-label="Default select example"
+                                >
+                                    <option disabled>
+                                        {dataQuiz.difficulty === "undefined"
+                                            ? "Open this select menu"
+                                            : dataQuiz.difficulty}
+                                    </option>
+
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
                                 </select>
                             </div>
                             <div className="wrap-preview-image">
@@ -156,3 +139,5 @@ export function ModalUpdateUser(props) {
         </>
     );
 }
+
+export default ModalEditQuiz;

@@ -10,6 +10,7 @@ export function ModalDeleteUser(props) {
     const handleClose = () => setShow(false);
     const handleDeleteSubmit = async () => {
         let data = await deleteUser(dataDeleteUser.id);
+        console.log(dataDeleteUser.id);
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
@@ -28,10 +29,7 @@ export function ModalDeleteUser(props) {
                 <Modal.Header closeButton>
                     <Modal.Title>Delete User</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                    Are you sure delete this user{" "}
-                    {dataDeleteUser ? dataDeleteUser.email : ""}
-                </Modal.Body>
+                <Modal.Body>Are you sure delete this user {dataDeleteUser ? dataDeleteUser.email : ""}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close

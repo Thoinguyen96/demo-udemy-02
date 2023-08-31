@@ -1,5 +1,4 @@
 import ReactPaginate from "react-paginate";
-import React, { useEffect, useState } from "react";
 
 export function TableUserPaginate(props) {
     const listUser = props.listUser;
@@ -31,28 +30,16 @@ export function TableUserPaginate(props) {
                                     <td>{item.email}</td>
                                     <td>{item.role}</td>
                                     <td>
-                                        <button
-                                            onClick={() =>
-                                                props.handleViewUser(item)
-                                            }
-                                            className="btn btn-info"
-                                        >
+                                        <button onClick={() => props.handleViewUser(item)} className="btn btn-info">
                                             View
                                         </button>
                                         <button
-                                            onClick={() =>
-                                                props.handleUpdateUser(item)
-                                            }
+                                            onClick={() => props.handleUpdateUser(item)}
                                             className="btn btn-warning mx-3"
                                         >
                                             Update
                                         </button>
-                                        <button
-                                            onClick={() =>
-                                                props.handleDeleteUser(item)
-                                            }
-                                            className="btn btn-danger"
-                                        >
+                                        <button onClick={() => props.handleDeleteUser(item)} className="btn btn-danger">
                                             Delete
                                         </button>
                                     </td>

@@ -1,6 +1,4 @@
 .content__wrap-show {
-    margin: 20px;
-
     .QuizManage__wrap {
         .border.p-2 {
             border-radius: 5px;
@@ -8,6 +6,13 @@
                 height: 60px;
                 line-height: 3.25;
             }
+        }
+    }
+    .wrapper__list-quiz {
+        margin-top: 60px;
+        .wrap__btn {
+            display: flex;
+            gap: 10px;
         }
     }
 }
