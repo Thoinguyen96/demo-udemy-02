@@ -42,7 +42,6 @@ function ModalEditQuiz(props) {
             toast.error(res.EM);
         }
     };
-    console.log(dataQuiz.difficulty);
     return (
         <>
             <Modal show={show} onHide={props.setCloseModalUpdate} backdrop="static" size="lg">

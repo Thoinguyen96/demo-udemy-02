@@ -55,7 +55,7 @@ function ManageUser() {
     return (
         <div>
             <div>ManageUser page</div>
-            <button onClick={handleShows} className="btn-primary">
+            <button onClick={handleShows} className="btn btn-primary mb-3">
                 Add user
             </button>
             <div>

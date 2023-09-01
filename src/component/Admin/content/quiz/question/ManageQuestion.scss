@@ -1,0 +1,44 @@
+.form__wrapper {
+    .icon__add {
+        color: green;
+    }
+    .icon__remove {
+        color: red;
+        font-size: 1.8rem;
+    }
+    .form-floating {
+        display: flex;
+        .label_padding {
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+        }
+    }
+    .form__image {
+        gap: 5px;
+        display: flex;
+        align-items: center;
+        display: flex;
+        .image_file {
+            font-size: 1.2rem;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+    }
+    .question__answer {
+        align-items: center;
+        margin-top: 30px;
+        display: flex;
+        gap: 10px;
+    }
+    .question__wrapper {
+        margin-top: 60px;
+    }
+    .wrapper__icon {
+        margin-left: 50px;
+        display: flex;
+        gap: 10px;
+    }
+}

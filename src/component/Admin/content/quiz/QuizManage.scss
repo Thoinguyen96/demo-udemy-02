@@ -1,11 +1,13 @@
 .content__wrap-show {
+    .form-control {
+        height: 60px;
+        line-height: 3.25;
+        font-size: 1.3rem;
+    }
+    padding: 0 10px;
     .QuizManage__wrap {
         .border.p-2 {
             border-radius: 5px;
-            .form-control {
-                height: 60px;
-                line-height: 3.25;
-            }
         }
     }
     .wrapper__list-quiz {

@@ -60,7 +60,6 @@ function QuizManage(props) {
         } else {
             toast.error(res.EM);
         }
-        console.log(res);
     };
     return (
         <div className="QuizManage__wrap">
