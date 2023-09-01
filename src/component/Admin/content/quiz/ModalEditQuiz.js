@@ -42,7 +42,7 @@ function ModalEditQuiz(props) {
             toast.error(res.EM);
         }
     };
-
+    console.log(dataQuiz.difficulty);
     return (
         <>
             <Modal show={show} onHide={props.setCloseModalUpdate} backdrop="static" size="lg">
@@ -96,15 +96,15 @@ function ModalEditQuiz(props) {
                                     onChange={(even) => setType(even.target.value)}
                                     aria-label="Default select example"
                                 >
-                                    <option disabled>
+                                    <option className="option_label" disabled selected>
                                         {dataQuiz.difficulty === "undefined"
-                                            ? "Open this select menu"
+                                            ? "choose the difficulty of the test"
                                             : dataQuiz.difficulty}
                                     </option>
 
-                                    <option value="easy">Easy</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="hard">Hard</option>
+                                    <option value="Easy">Easy</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Hard">Hard</option>
                                 </select>
                             </div>
                             <div className="wrap-preview-image">
