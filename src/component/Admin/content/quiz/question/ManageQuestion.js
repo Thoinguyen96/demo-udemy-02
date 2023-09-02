@@ -53,7 +53,7 @@ function ManageQuestion() {
     const handleAddQuestion = (ques, index) => {
         const newQuestion = {
             id: uuidv4(),
-            description: `question ${index + 1}`,
+            description: "",
             imageFile: "",
             imageName: "",
             answer: [
@@ -72,6 +72,47 @@ function ManageQuestion() {
         });
         setQuestion(questionClone);
     };
+    const handleQuestionValue = (event, questionId) => {
+        const questionClone = _.cloneDeep(question);
+        const index = questionClone.findIndex((item) => item.id === questionId);
+        if (index > -1) {
+            questionClone[index] = event.target.value;
+            setQuestion(questionClone);
+        }
+    };
+    const handleUploadFile = (event, questionId) => {
+        const questionClone = _.cloneDeep(question);
+        const index = questionClone.findIndex((item) => item.id === questionId);
+        if (index > -1 && event.target && event.target.files && event.target.files[0]) {
+            questionClone[index].imageFile = event.target.files[0]; //get data image
+            questionClone[index].imageName = event.target.files[0].name; //get name image
+
+            setQuestion(questionClone);
+        }
+    };
+    const handleCheckAnswer = (type, event, questionId, answerId) => {
+        const questionClone = _.cloneDeep(question);
+        const index = questionClone.findIndex((item) => item.id === questionId);
+        if (index > -1) {
+            questionClone[index].answer = questionClone[index].answer.map((answer) => {
+                if (answer.id === answerId) {
+                    if (type === "checkbox") {
+                        answer.isCorrect = event;
+                    }
+                    if (type === "value") {
+                        answer.description = event;
+                    }
+                }
+                return answer;
+            });
+        }
+
+        setQuestion(questionClone);
+    };
+    const handleSaveQuestion = () => {
+        console.log(question);
+    };
+
     return (
         <div>
             ManageQuestion page
@@ -83,24 +124,31 @@ function ManageQuestion() {
                 {question &&
                     question.length > 0 &&
                     question.map((ques, index) => {
+                        // console.log(ques);
                         return (
                             <div key={index} className="question__wrapper">
                                 <div className="mt-3 form__image">
                                     <form className="form-floating  col-6">
                                         <input
+                                            onChange={(event) => handleQuestionValue(event, ques.id)}
                                             type="text"
                                             className="form-control"
                                             id="floatingInputValue"
                                             placeholder="name@example.com"
-                                            // value="test@example.com"
+                                            value={question.description}
                                         />
                                         <label className="label_padding">Add question {index + 1}</label>
                                     </form>
-                                    <input hidden id="file_img" type="file" />
-                                    <label className="image_file btn btn-outline-success" htmlFor="file_img">
+                                    <input
+                                        onChange={(event) => handleUploadFile(event, ques.id)}
+                                        hidden
+                                        id={`for ${ques.id}`}
+                                        type="file"
+                                    />
+                                    <label className="image_file btn btn-outline-success" htmlFor={`for ${ques.id}`}>
                                         <BiImageAdd /> Choose file
                                     </label>
-                                    <label>0 file upload</label>
+                                    <label>{ques.imageName ? ques.imageName : "0 file upload"}</label>
                                     <div className="wrapper__icon">
                                         <BsFillPlusSquareFill
                                             onClick={() => handleAddQuestion(ques.id, index)}
@@ -120,9 +168,29 @@ function ManageQuestion() {
                                     ques.answer.map((a, key) => {
                                         return (
                                             <div key={a.id} className="question__answer">
-                                                <input type="checkbox" />
+                                                checked
+                                                <input
+                                                    onChange={(event) =>
+                                                        handleCheckAnswer(
+                                                            "checkbox",
+                                                            event.target.checked,
+                                                            ques.id,
+                                                            a.id
+                                                        )
+                                                    }
+                                                    checked={a.isCorrect}
+                                                    type="checkbox"
+                                                />
                                                 <form className="form-floating col-6">
                                                     <input
+                                                        onChange={(event) =>
+                                                            handleCheckAnswer(
+                                                                "value",
+                                                                event.target.value,
+                                                                ques.id,
+                                                                a.id
+                                                            )
+                                                        }
                                                         type="text"
                                                         className="form-control"
                                                         id="floatingInputValue"
@@ -145,6 +213,9 @@ function ManageQuestion() {
                                             </div>
                                         );
                                     })}
+                                <button onClick={handleSaveQuestion} className="btn btn-danger mt-3">
+                                    Save
+                                </button>
                             </div>
                         );
                     })}
