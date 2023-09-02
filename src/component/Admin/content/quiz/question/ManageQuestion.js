@@ -6,13 +6,19 @@ import { v4 as uuidv4 } from "uuid";
 import Select from "react-select";
 import "./ManageQuestion.scss";
 import _ from "lodash";
+import Lightbox from "react-awesome-lightbox";
 function ManageQuestion() {
     const options = [
         { value: "easy", label: "Easy" },
         { value: "medium", label: "Medium" },
         { value: "hard", label: "Hard" },
     ];
+    const [isPreviewImage, setIsPreviewImage] = useState(false);
     const [selectedQuiz, setSelectedQuiz] = useState([]);
+    const [previewDataImage, setPreviewDataImage] = useState({
+        title: "",
+        url: "",
+    });
     const [question, setQuestion] = useState([
         {
             id: uuidv4(),
@@ -112,6 +118,17 @@ function ManageQuestion() {
     const handleSaveQuestion = () => {
         console.log(question);
     };
+    const handlePreviewImage = (questionId) => {
+        const questionClone = _.cloneDeep(question);
+        const index = questionClone.findIndex((item) => item.id === questionId);
+        if (index > -1) {
+            setPreviewDataImage({
+                url: questionClone[index].imageFile,
+                title: questionClone[index].imageName,
+            });
+            setIsPreviewImage(true);
+        }
+    };
 
     return (
         <div>
@@ -124,7 +141,8 @@ function ManageQuestion() {
                 {question &&
                     question.length > 0 &&
                     question.map((ques, index) => {
-                        // console.log(ques);
+                        console.log(ques.imageFile);
+
                         return (
                             <div key={index} className="question__wrapper">
                                 <div className="mt-3 form__image">
@@ -148,7 +166,13 @@ function ManageQuestion() {
                                     <label className="image_file btn btn-outline-success" htmlFor={`for ${ques.id}`}>
                                         <BiImageAdd /> Choose file
                                     </label>
-                                    <label>{ques.imageName ? ques.imageName : "0 file upload"}</label>
+                                    <label>
+                                        {ques.imageName ? (
+                                            <span onClick={() => handlePreviewImage(ques.id)}>{ques.imageName}</span>
+                                        ) : (
+                                            "0 file upload"
+                                        )}
+                                    </label>
                                     <div className="wrapper__icon">
                                         <BsFillPlusSquareFill
                                             onClick={() => handleAddQuestion(ques.id, index)}
@@ -220,6 +244,14 @@ function ManageQuestion() {
                         );
                     })}
             </div>
+            {isPreviewImage === true && (
+                <Lightbox
+                    key={question.id}
+                    image={URL.createObjectURL(previewDataImage.url)}
+                    title={previewDataImage.title}
+                    onClose={() => setIsPreviewImage(false)}
+                ></Lightbox>
+            )}
         </div>
     );
 }

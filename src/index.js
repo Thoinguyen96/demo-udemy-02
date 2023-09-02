@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
 import GlobalStyle from "./component/GlobalStyle/GlobalStyle.js";
 import { persistor } from "./redux/store";
+import "react-awesome-lightbox/build/style.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <Provider store={store}>
