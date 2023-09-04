@@ -7,12 +7,18 @@ import Select from "react-select";
 import "./ManageQuestion.scss";
 import _ from "lodash";
 import Lightbox from "react-awesome-lightbox";
+import {
+    getAllDataQuiz,
+    postCreateNewQuestionForQuiz,
+    postCreateNewAnswerForQuiz,
+} from "../../../../../services/apiServices";
 function ManageQuestion() {
-    const options = [
-        { value: "easy", label: "Easy" },
-        { value: "medium", label: "Medium" },
-        { value: "hard", label: "Hard" },
-    ];
+    // const options = [
+    //     { value: "easy", label: "Easy" },
+    //     { value: "medium", label: "Medium" },
+    //     { value: "hard", label: "Hard" },
+    // ];
+    const [listQuiz, setListQuiz] = useState([]);
     const [isPreviewImage, setIsPreviewImage] = useState(false);
     const [selectedQuiz, setSelectedQuiz] = useState([]);
     const [previewDataImage, setPreviewDataImage] = useState({
@@ -34,6 +40,22 @@ function ManageQuestion() {
             ],
         },
     ]);
+
+    useEffect(() => {
+        fetchAllQuiz();
+    }, []);
+    const fetchAllQuiz = async () => {
+        const res = await getAllDataQuiz();
+        if (res && res.EC === 0) {
+            const data = res.DT.map((item) => {
+                return {
+                    value: item.id,
+                    label: `${item.id}.  ${item.description}`,
+                };
+            });
+            setListQuiz(data);
+        }
+    };
 
     const handleAddAnswer = (questionID) => {
         const questionClone = _.cloneDeep(question);
@@ -82,10 +104,11 @@ function ManageQuestion() {
         const questionClone = _.cloneDeep(question);
         const index = questionClone.findIndex((item) => item.id === questionId);
         if (index > -1) {
-            questionClone[index] = event.target.value;
+            questionClone[index].description = event;
             setQuestion(questionClone);
         }
     };
+
     const handleUploadFile = (event, questionId) => {
         const questionClone = _.cloneDeep(question);
         const index = questionClone.findIndex((item) => item.id === questionId);
@@ -96,9 +119,11 @@ function ManageQuestion() {
             setQuestion(questionClone);
         }
     };
-    const handleCheckAnswer = (type, event, questionId, answerId) => {
+
+    const handleCheckAndValueAnswer = (type, event, questionId, answerId) => {
         const questionClone = _.cloneDeep(question);
         const index = questionClone.findIndex((item) => item.id === questionId);
+
         if (index > -1) {
             questionClone[index].answer = questionClone[index].answer.map((answer) => {
                 if (answer.id === answerId) {
@@ -111,13 +136,10 @@ function ManageQuestion() {
                 }
                 return answer;
             });
+            setQuestion(questionClone);
         }
+    };
 
-        setQuestion(questionClone);
-    };
-    const handleSaveQuestion = () => {
-        console.log(question);
-    };
     const handlePreviewImage = (questionId) => {
         const questionClone = _.cloneDeep(question);
         const index = questionClone.findIndex((item) => item.id === questionId);
@@ -129,31 +151,39 @@ function ManageQuestion() {
             setIsPreviewImage(true);
         }
     };
-
+    const handleSaveQuestion = async () => {
+        await Promise.all(
+            question.map(async (ques) => {
+                console.log(selectedQuiz.value);
+                const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, ques.description, ques.imageFile);
+                await Promise.all(
+                    ques.answer.map(async (answer) => {
+                        await postCreateNewAnswerForQuiz(answer.description, answer.isCorrect, q.DT.id);
+                    })
+                );
+            })
+        );
+    };
+    console.log(question);
     return (
         <div>
             ManageQuestion page
             <div className="col-6 mt-3">
-                <Select defaultValue={selectedQuiz} onChange={setSelectedQuiz} options={options} />
+                <Select defaultValue={selectedQuiz} onChange={setSelectedQuiz} options={listQuiz} />
             </div>
             <div className="form__wrapper mt-3">
                 <label>Add question</label>
                 {question &&
                     question.length > 0 &&
                     question.map((ques, index) => {
-                        console.log(ques.imageFile);
-
                         return (
                             <div key={index} className="question__wrapper">
                                 <div className="mt-3 form__image">
                                     <form className="form-floating  col-6">
                                         <input
-                                            onChange={(event) => handleQuestionValue(event, ques.id)}
+                                            onChange={(event) => handleQuestionValue(event.target.value, ques.id)}
                                             type="text"
                                             className="form-control"
-                                            id="floatingInputValue"
-                                            placeholder="name@example.com"
-                                            value={question.description}
                                         />
                                         <label className="label_padding">Add question {index + 1}</label>
                                     </form>
@@ -195,7 +225,7 @@ function ManageQuestion() {
                                                 checked
                                                 <input
                                                     onChange={(event) =>
-                                                        handleCheckAnswer(
+                                                        handleCheckAndValueAnswer(
                                                             "checkbox",
                                                             event.target.checked,
                                                             ques.id,
@@ -208,7 +238,7 @@ function ManageQuestion() {
                                                 <form className="form-floating col-6">
                                                     <input
                                                         onChange={(event) =>
-                                                            handleCheckAnswer(
+                                                            handleCheckAndValueAnswer(
                                                                 "value",
                                                                 event.target.value,
                                                                 ques.id,
@@ -218,7 +248,6 @@ function ManageQuestion() {
                                                         type="text"
                                                         className="form-control"
                                                         id="floatingInputValue"
-                                                        placeholder="name@example.com"
                                                     />
                                                     <label className="label_padding">Answer {key + 1} </label>
                                                 </form>
