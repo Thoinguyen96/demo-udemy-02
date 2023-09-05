@@ -4,16 +4,17 @@ import { AiFillMinusCircle } from "react-icons/ai";
 import { BiImageAdd } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
 import Select from "react-select";
-import "./ManageQuestion.scss";
 import _ from "lodash";
 import Lightbox from "react-awesome-lightbox";
+import "./UpdateQA.scss";
+
+import { toast } from "react-toastify";
 import {
     getAllDataQuiz,
-    postCreateNewQuestionForQuiz,
     postCreateNewAnswerForQuiz,
-} from "../../../../../services/apiServices";
-import { toast } from "react-toastify";
-function ManageQuestion() {
+    postCreateNewQuestionForQuiz,
+} from "../../../../services/apiServices";
+function UpdateQA() {
     const initQuiz = [
         {
             id: uuidv4(),
@@ -166,56 +167,6 @@ function ManageQuestion() {
             toast.error("Please choose a quiz!");
             return;
         }
-        // code theo video
-        // let isValidateAnswer = true;
-        // let indexQ = 0;
-        // let indexA = 0;
-        // for (let i = 0; i < question.length; i++) {
-        //     for (let j = 0; j < question[i].answer.length; j++) {
-        //         if (!question[i].answer[j].description) {
-        //             isValidateAnswer = false;
-        //             indexA = j;
-        //             break;
-        //         }
-        //     }
-        //     indexQ = i;
-        //     if (isValidateAnswer === false) {
-        //         break;
-        //     }
-        // }
-        // if (isValidateAnswer === false) {
-        //     toast.error(`Please choose answer ${indexA + 1} on question ${indexQ + 1}`);
-        //     return;
-        // }
-
-        // let isValidateQuestion = true;
-        // let indexQ1 = 0;
-        // for (let i = 0; i < question.length; i++) {
-        //     if (!question[i].description) {
-        //         isValidateQuestion = false;
-        //         indexQ1 = i;
-        //         break;
-        //     }
-        // }
-        // if (isValidateQuestion === false) {
-        //     toast.error(`Please choose question ${indexQ1 + 1}`);
-        //     return;
-        // }
-
-        // if (isValidateAnswer === false) {
-        //     toast.error(`Please choose answer ${indexA + 1} on question ${indexQ + 1}`);
-        //     return;
-        // }
-
-        // if (isValidateQuestion === false) {
-        //     toast.error(`Please choose question ${indexQ + 1}`);
-        //     return;
-        // }
-        // if (isValidateQuestion === false && isValidateAnswer === false) {
-        //     toast.error(`Please choose question ${indexQ + 1} and answer  ${indexA + 1}`);
-        //     return;
-        // }
-        /////////////////////////////////////////////
 
         let isValidateAnswer = true;
         let isValidateQuestion = true;
@@ -258,7 +209,8 @@ function ManageQuestion() {
 
     return (
         <div>
-            ManageQuestion page
+            <label>Select Quiz</label>
+
             <div className="col-6 mt-3">
                 <Select defaultValue={selectedQuiz} onChange={setSelectedQuiz} options={listQuiz} />
             </div>
@@ -384,4 +336,4 @@ function ManageQuestion() {
     );
 }
 
-export default ManageQuestion;
+export default UpdateQA;

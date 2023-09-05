@@ -8,6 +8,8 @@ import Accordion from "react-bootstrap/Accordion";
 import ModalDeleteQuiz from "./ModalDeleteQuiz";
 import { useEffect } from "react";
 import ModalEditQuiz from "./ModalEditQuiz";
+import UpdateQA from "./UpdateQA";
+import AssignUser from "./AssignUser";
 
 const options = [
     { value: "Easy", label: "Easy" },
@@ -119,19 +121,35 @@ function QuizManage(props) {
                                 </button>
                             </div>
                         </fieldset>
+                        <div className="table__quiz">
+                            <TableQuiz
+                                listQuiz={listQuiz}
+                                setShowModal={setShowModal}
+                                setDataQuiz={setDataQuiz}
+                                handleDeleteListQuiz={handleDeleteListQuiz}
+                                setShowModalEditQuiz={setShowModalEditQuiz}
+                            />
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                    <Accordion.Header>Update Quiz</Accordion.Header>
+                    <Accordion.Body>
+                        <div>
+                            <UpdateQA />
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="3">
+                    <Accordion.Header>Assign Quiz</Accordion.Header>
+                    <Accordion.Body>
+                        <div>
+                            <AssignUser />
+                        </div>
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
 
-            <div className="table__quiz">
-                <TableQuiz
-                    listQuiz={listQuiz}
-                    setShowModal={setShowModal}
-                    setDataQuiz={setDataQuiz}
-                    handleDeleteListQuiz={handleDeleteListQuiz}
-                    setShowModalEditQuiz={setShowModalEditQuiz}
-                />
-            </div>
             <div className="edit__quiz">
                 <ModalEditQuiz
                     dataQuiz={dataQuiz}

@@ -15,7 +15,8 @@ import AuthLayout from "../component/Layout/AuthLayout";
 import NotFound from "../component/pages/NotFound";
 import DetailQuiz from "../component/User/DetailQuiz";
 import QuizManage from "../component/Admin/content/quiz/QuizManage";
-import ManageQuestion from "../component/Admin/content/quiz/question/ManageQuestion";
+import ManageQuestion from "../component/Admin/content/question/ManageQuestion";
+
 const publicRoutes = [
     { path: routes.dashBoard, component: DashBoard, layout: ConfigLayout },
     { path: routes.manageUser, component: ManageUser, layout: ConfigLayout },
