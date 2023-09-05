@@ -26,7 +26,6 @@ function AssignUser(props) {
     };
     const fetchAllUser = async () => {
         const res = await getAllUser();
-        console.log(res.DT);
 
         if (res && res.EC === 0) {
             const newRes = res.DT.map((user) => {
