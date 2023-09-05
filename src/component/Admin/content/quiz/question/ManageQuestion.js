@@ -12,12 +12,25 @@ import {
     postCreateNewQuestionForQuiz,
     postCreateNewAnswerForQuiz,
 } from "../../../../../services/apiServices";
+import { toast } from "react-toastify";
 function ManageQuestion() {
-    // const options = [
-    //     { value: "easy", label: "Easy" },
-    //     { value: "medium", label: "Medium" },
-    //     { value: "hard", label: "Hard" },
-    // ];
+    const initQuiz = [
+        {
+            id: uuidv4(),
+            description: "",
+            imageFile: "",
+            imageName: "",
+            isValidate: false,
+            answer: [
+                {
+                    id: uuidv4(),
+                    description: "",
+                    isCorrect: false,
+                    isValidate: false,
+                },
+            ],
+        },
+    ];
     const [listQuiz, setListQuiz] = useState([]);
     const [isPreviewImage, setIsPreviewImage] = useState(false);
     const [selectedQuiz, setSelectedQuiz] = useState([]);
@@ -25,21 +38,7 @@ function ManageQuestion() {
         title: "",
         url: "",
     });
-    const [question, setQuestion] = useState([
-        {
-            id: uuidv4(),
-            description: "",
-            imageFile: "",
-            imageName: "",
-            answer: [
-                {
-                    id: uuidv4(),
-                    description: "",
-                    isCorrect: false,
-                },
-            ],
-        },
-    ]);
+    const [question, setQuestion] = useState(initQuiz);
 
     useEffect(() => {
         fetchAllQuiz();
@@ -103,7 +102,11 @@ function ManageQuestion() {
     const handleQuestionValue = (event, questionId) => {
         const questionClone = _.cloneDeep(question);
         const index = questionClone.findIndex((item) => item.id === questionId);
+
         if (index > -1) {
+            if (event.length > 0) {
+                questionClone[index].isValidate = false;
+            }
             questionClone[index].description = event;
             setQuestion(questionClone);
         }
@@ -126,6 +129,9 @@ function ManageQuestion() {
 
         if (index > -1) {
             questionClone[index].answer = questionClone[index].answer.map((answer) => {
+                if (event.length > 0) {
+                    answer.isValidate = false;
+                }
                 if (answer.id === answerId) {
                     if (type === "checkbox") {
                         answer.isCorrect = event;
@@ -134,6 +140,7 @@ function ManageQuestion() {
                         answer.description = event;
                     }
                 }
+
                 return answer;
             });
             setQuestion(questionClone);
@@ -151,20 +158,104 @@ function ManageQuestion() {
             setIsPreviewImage(true);
         }
     };
+
+    //for of giúp chạy tuần tự
+
     const handleSaveQuestion = async () => {
-        await Promise.all(
-            question.map(async (ques) => {
-                console.log(selectedQuiz.value);
-                const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, ques.description, ques.imageFile);
-                await Promise.all(
-                    ques.answer.map(async (answer) => {
-                        await postCreateNewAnswerForQuiz(answer.description, answer.isCorrect, q.DT.id);
-                    })
-                );
-            })
-        );
+        if (_.isEmpty(selectedQuiz)) {
+            toast.error("Please choose a quiz!");
+            return;
+        }
+        // code theo video
+        // let isValidateAnswer = true;
+        // let indexQ = 0;
+        // let indexA = 0;
+        // for (let i = 0; i < question.length; i++) {
+        //     for (let j = 0; j < question[i].answer.length; j++) {
+        //         if (!question[i].answer[j].description) {
+        //             isValidateAnswer = false;
+        //             indexA = j;
+        //             break;
+        //         }
+        //     }
+        //     indexQ = i;
+        //     if (isValidateAnswer === false) {
+        //         break;
+        //     }
+        // }
+        // if (isValidateAnswer === false) {
+        //     toast.error(`Please choose answer ${indexA + 1} on question ${indexQ + 1}`);
+        //     return;
+        // }
+
+        // let isValidateQuestion = true;
+        // let indexQ1 = 0;
+        // for (let i = 0; i < question.length; i++) {
+        //     if (!question[i].description) {
+        //         isValidateQuestion = false;
+        //         indexQ1 = i;
+        //         break;
+        //     }
+        // }
+        // if (isValidateQuestion === false) {
+        //     toast.error(`Please choose question ${indexQ1 + 1}`);
+        //     return;
+        // }
+
+        // if (isValidateAnswer === false) {
+        //     toast.error(`Please choose answer ${indexA + 1} on question ${indexQ + 1}`);
+        //     return;
+        // }
+
+        // if (isValidateQuestion === false) {
+        //     toast.error(`Please choose question ${indexQ + 1}`);
+        //     return;
+        // }
+        // if (isValidateQuestion === false && isValidateAnswer === false) {
+        //     toast.error(`Please choose question ${indexQ + 1} and answer  ${indexA + 1}`);
+        //     return;
+        // }
+        /////////////////////////////////////////////
+
+        let isValidateAnswer = true;
+        let isValidateQuestion = true;
+
+        for (let i = 0; i < question.length; i++) {
+            if (!question[i].description) {
+                isValidateQuestion = false;
+                if (isValidateQuestion === false) {
+                    question[i].isValidate = true;
+                    toast.error(`Please fill in the question ${i + 1}`);
+
+                    fetchAllQuiz();
+
+                    return;
+                }
+            }
+            for (let j = 0; j < question[i].answer.length; j++) {
+                if (!question[i].answer[j].description) {
+                    isValidateAnswer = false;
+                    if (isValidateAnswer === false) {
+                        question[i].answer[j].isValidate = true;
+                        toast.error(`Please fill in the answer ${j + 1} to the question ${i + 1}`);
+                        fetchAllQuiz();
+
+                        return;
+                    }
+                }
+            }
+        }
+
+        for (const ques of question) {
+            const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, ques.description, ques.imageFile);
+            for (const answer of ques.answer) {
+                await postCreateNewAnswerForQuiz(answer.description, answer.isCorrect, q.DT.id);
+            }
+        }
+        toast.success(`Save quiz success `);
+        setQuestion(initQuiz);
     };
-    console.log(question);
+
     return (
         <div>
             ManageQuestion page
@@ -183,7 +274,10 @@ function ManageQuestion() {
                                         <input
                                             onChange={(event) => handleQuestionValue(event.target.value, ques.id)}
                                             type="text"
-                                            className="form-control"
+                                            className={
+                                                ques.isValidate === true ? "form-control is-invalid" : "form-control"
+                                            }
+                                            value={ques.description}
                                         />
                                         <label className="label_padding">Add question {index + 1}</label>
                                     </form>
@@ -234,6 +328,7 @@ function ManageQuestion() {
                                                     }
                                                     checked={a.isCorrect}
                                                     type="checkbox"
+                                                    value={a.description}
                                                 />
                                                 <form className="form-floating col-6">
                                                     <input
@@ -246,7 +341,11 @@ function ManageQuestion() {
                                                             )
                                                         }
                                                         type="text"
-                                                        className="form-control"
+                                                        className={
+                                                            a.isValidate === true
+                                                                ? "is-invalid form-control"
+                                                                : "form-control"
+                                                        }
                                                         id="floatingInputValue"
                                                     />
                                                     <label className="label_padding">Answer {key + 1} </label>
@@ -266,12 +365,12 @@ function ManageQuestion() {
                                             </div>
                                         );
                                     })}
-                                <button onClick={handleSaveQuestion} className="btn btn-danger mt-3">
-                                    Save
-                                </button>
                             </div>
                         );
                     })}
+                <button onClick={handleSaveQuestion} className="btn btn-danger mt-3">
+                    Save
+                </button>
             </div>
             {isPreviewImage === true && (
                 <Lightbox
