@@ -4,13 +4,14 @@ import { AiFillMinusCircle } from "react-icons/ai";
 import { BiImageAdd } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
 import Select from "react-select";
-import _ from "lodash";
+import _, { isEmpty } from "lodash";
 import Lightbox from "react-awesome-lightbox";
 import "./UpdateQA.scss";
 
 import { toast } from "react-toastify";
 import {
     getAllDataQuiz,
+    getQuizWidthQA,
     postCreateNewAnswerForQuiz,
     postCreateNewQuestionForQuiz,
 } from "../../../../services/apiServices";
@@ -22,7 +23,7 @@ function UpdateQA() {
             imageFile: "",
             imageName: "",
             isValidate: false,
-            answer: [
+            answers: [
                 {
                     id: uuidv4(),
                     description: "",
@@ -39,24 +40,67 @@ function UpdateQA() {
         title: "",
         url: "",
     });
+
     const [question, setQuestion] = useState(initQuiz);
 
     useEffect(() => {
         fetchAllQuiz();
     }, []);
+    useEffect(() => {
+        if (selectedQuiz && selectedQuiz.value) {
+            fetchQuizWidthQA();
+        }
+    }, [selectedQuiz]);
+
+    // return a promise that resolves with a File instance
+    function urltoFile(url, filename, mimeType) {
+        if (url.startsWith("data:")) {
+            var arr = url.split(","),
+                mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[arr.length - 1]),
+                n = bstr.length,
+                u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            var file = new File([u8arr], filename, { type: mime || mimeType });
+            return Promise.resolve(file);
+        }
+        return fetch(url)
+            .then((res) => res.arrayBuffer())
+            .then((buf) => new File([buf], filename, { type: mimeType }));
+    }
+
+    //Usage example:
+    const fetchQuizWidthQA = async () => {
+        const res = await getQuizWidthQA(selectedQuiz.value);
+        if (res && res.EC === 0) {
+            const newDataQuiz = [];
+
+            for (let i = 0; i < res.DT.qa.length; i++) {
+                const q = res.DT.qa[i];
+                if (q.imageFile) {
+                    q.imageName = `question-${q.id}.png`;
+                    q.imageFile = await urltoFile(`data:image/png;base64,${q.imageFile}`, `question-${q.id}.png`);
+                }
+                newDataQuiz.push(q);
+            }
+            setQuestion(newDataQuiz);
+        }
+    };
+
     const fetchAllQuiz = async () => {
         const res = await getAllDataQuiz();
         if (res && res.EC === 0) {
             const data = res.DT.map((item) => {
                 return {
                     value: item.id,
-                    label: `${item.id}.  ${item.description}`,
+                    label: `${item.id}.  ${item.name}`,
                 };
             });
             setListQuiz(data);
         }
     };
-
     const handleAddAnswer = (questionID) => {
         const questionClone = _.cloneDeep(question);
         const index = questionClone.findIndex((item) => item.id === questionID);
@@ -65,16 +109,16 @@ function UpdateQA() {
             description: "",
             isCorrect: false,
         };
-        questionClone[index].answer.push(newAnswer);
+        questionClone[index].answers.push(newAnswer);
         setQuestion(questionClone);
     };
     const handleRemoveAnswer = (questionID, answerId) => {
         const questionClone = _.cloneDeep(question);
         const index = questionClone.findIndex((item) => item.id === questionID);
-        const removeAnswer = questionClone[index].answer.filter((a) => {
+        const removeAnswer = questionClone[index].answers.filter((a) => {
             return a.id !== answerId;
         });
-        questionClone[index].answer = removeAnswer;
+        questionClone[index].answers = removeAnswer;
 
         setQuestion(questionClone);
     };
@@ -84,7 +128,7 @@ function UpdateQA() {
             description: "",
             imageFile: "",
             imageName: "",
-            answer: [
+            answers: [
                 {
                     id: uuidv4(),
                     description: "",
@@ -129,20 +173,20 @@ function UpdateQA() {
         const index = questionClone.findIndex((item) => item.id === questionId);
 
         if (index > -1) {
-            questionClone[index].answer = questionClone[index].answer.map((answer) => {
+            questionClone[index].answers = questionClone[index].answers.map((answers) => {
                 if (event.length > 0) {
-                    answer.isValidate = false;
+                    answers.isValidate = false;
                 }
-                if (answer.id === answerId) {
+                if (answers.id === answerId) {
                     if (type === "checkbox") {
-                        answer.isCorrect = event;
+                        answers.isCorrect = event;
                     }
                     if (type === "value") {
-                        answer.description = event;
+                        answers.description = event;
                     }
                 }
 
-                return answer;
+                return answers;
             });
             setQuestion(questionClone);
         }
@@ -183,12 +227,12 @@ function UpdateQA() {
                     return;
                 }
             }
-            for (let j = 0; j < question[i].answer.length; j++) {
-                if (!question[i].answer[j].description) {
+            for (let j = 0; j < question[i].answers.length; j++) {
+                if (!question[i].answers[j].description) {
                     isValidateAnswer = false;
                     if (isValidateAnswer === false) {
-                        question[i].answer[j].isValidate = true;
-                        toast.error(`Please fill in the answer ${j + 1} to the question ${i + 1}`);
+                        question[i].answers[j].isValidate = true;
+                        toast.error(`Please fill in the answers ${j + 1} to the question ${i + 1}`);
                         fetchAllQuiz();
 
                         return;
@@ -199,8 +243,8 @@ function UpdateQA() {
 
         for (const ques of question) {
             const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, ques.description, ques.imageFile);
-            for (const answer of ques.answer) {
-                await postCreateNewAnswerForQuiz(answer.description, answer.isCorrect, q.DT.id);
+            for (const answers of ques.answers) {
+                await postCreateNewAnswerForQuiz(answers.description, answers.isCorrect, q.DT.id);
             }
         }
         toast.success(`Save quiz success `);
@@ -263,9 +307,9 @@ function UpdateQA() {
                                     </div>
                                 </div>
 
-                                {ques.answer &&
-                                    ques.answer.length > 0 &&
-                                    ques.answer.map((a, key) => {
+                                {ques.answers &&
+                                    ques.answers.length > 0 &&
+                                    ques.answers.map((a, key) => {
                                         return (
                                             <div key={a.id} className="question__answer">
                                                 checked
@@ -284,6 +328,7 @@ function UpdateQA() {
                                                 />
                                                 <form className="form-floating col-6">
                                                     <input
+                                                        value={a.description}
                                                         onChange={(event) =>
                                                             handleCheckAndValueAnswer(
                                                                 "value",
@@ -300,7 +345,7 @@ function UpdateQA() {
                                                         }
                                                         id="floatingInputValue"
                                                     />
-                                                    <label className="label_padding">Answer {key + 1} </label>
+                                                    <label className="label_padding">answers {key + 1} </label>
                                                 </form>
                                                 <BsPlusCircleFill
                                                     className="icon__add"
@@ -308,7 +353,7 @@ function UpdateQA() {
                                                         handleAddAnswer(ques.id);
                                                     }}
                                                 />
-                                                {ques.answer.length > 1 && (
+                                                {ques.answers.length > 1 && (
                                                     <AiFillMinusCircle
                                                         onClick={() => handleRemoveAnswer(ques.id, a.id)}
                                                         className="icon__remove"

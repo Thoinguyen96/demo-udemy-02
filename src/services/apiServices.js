@@ -28,6 +28,9 @@ export const putEditQuiz = (id, type, name, description, image) => {
 export const getAllUser = () => {
     return instance.get("api/v1/participant/all");
 };
+export const getQuizWidthQA = (quizId) => {
+    return instance.get(`api/v1/quiz-with-qa/${quizId}`);
+};
 export const getListQuizByUser = () => {
     return instance.get("api/v1/quiz-by-participant");
 };
@@ -45,6 +48,10 @@ export const postRegister = (email, password, username) => {
 };
 export const postSubmitQuiz = (data) => {
     return instance.post("api/v1/quiz-submit", { ...data });
+};
+
+export const postAssignQuiz = (quizId, userId) => {
+    return instance.post("api/v1/quiz-assign-to-user", { quizId, userId });
 };
 export const postCreateQuiz = (description, image, difficulty, name) => {
     const data = new FormData();
@@ -67,6 +74,7 @@ export const postCreateNewAnswerForQuiz = (description, correct_answer, question
 export const getPaginationUser = (page, limit) => {
     return instance.get(`api/v1/participant?page=${page}&limit=${limit}`);
 };
+
 export const deleteUser = (userId) => {
     return instance.delete("api/v1/participant", { data: { id: userId } });
 };

@@ -1,11 +1,14 @@
 .list__quiz {
     margin: 60px 60px 0 60px;
     display: flex;
+    flex-wrap: wrap;
     gap: 30px;
+    width: 100%;
     .card {
         width: 20%;
     }
 }
+
 .detail__wrap {
     display: flex;
     margin: 0 100px;
@@ -23,21 +26,7 @@
     .detail__answer {
         width: 40%;
     }
-    // .btn-answer {
-    //     user-select: none;
-    //     align-items: center;
-    //     display: flex;
-    //     justify-content: center;
-    //     flex-direction: column;
-    //     width: 30px;
-    //     height: 30px;
-    //     border-radius: 50%;
-    //     border: 1px solid #ccc;
-    // }
-    // .form-check-input:checked ~ .btn-answer {
-    //     background: var(--color__default);
-    //     color: #fff;
-    // }
+
     .next__wrap {
         display: flex;
         align-items: center;
