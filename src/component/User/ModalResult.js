@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 
 export function ModalResult(props) {
     const { show, setShow, dataAnswersResult } = props;
-    console.log(dataAnswersResult);
     const handleClose = () => setShow(false);
 
     return (

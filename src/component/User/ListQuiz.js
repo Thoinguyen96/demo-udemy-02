@@ -14,10 +14,12 @@ function ListQuiz() {
             setListQuiz(res.DT);
         }
     };
+
     return (
         <div className="list__quiz">
             {listQuiz &&
                 listQuiz.map((quiz, index) => {
+                    console.log(quiz);
                     return (
                         <div className="card" key={quiz.id}>
                             <img

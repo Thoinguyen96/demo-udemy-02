@@ -11,16 +11,15 @@
 
 .detail__wrap {
     display: flex;
-    margin: 0 100px;
+    margin: 0 165px;
     padding-top: 20px;
     background-color: #f3f7fa;
     height: 1000px;
-    gap: 30px;
+    gap: 35px;
     .detail__questions {
         border: 1px solid #ccc;
         flex-direction: column;
         display: flex;
-        padding: 15px;
         width: 60%;
     }
     .detail__answer {
@@ -71,5 +70,45 @@
     }
     .answer__wrap {
         text-align: center;
+    }
+    .content__right-wrap {
+        border: 1px solid #ccc;
+
+        width: 350px;
+        .content__right {
+            background-color: var(--color__default);
+            align-items: center;
+            padding: 10px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            .content__right-icon {
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        .question {
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 15px 0;
+            display: flex;
+            gap: 27px;
+
+            .answer {
+                cursor: pointer;
+                border: 1px solid #ccc;
+                align-items: center;
+                justify-content: center;
+                display: flex;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                &:hover {
+                    color: var(--color__default);
+                }
+            }
+        }
     }
 }

@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import _ from "lodash";
 import Question from "./Question";
 import { ModalResult } from "./ModalResult";
+import ContentRight from "./content/ContentRight";
+
 function DetailQuiz() {
     const location = useLocation();
     const [quizQuestion, setQuizQuestion] = useState([]);
     const [index, setIndex] = useState(0);
     const [isShowModalResult, setIsShowModalResult] = useState(false);
     const [dataAnswersResult, setDataAnswersResult] = useState([]);
-
     const params = useParams();
     const quizId = params.id;
     useEffect(() => {
@@ -45,7 +46,6 @@ function DetailQuiz() {
             setQuizQuestion(data);
         }
     };
-
     const handlePrev = () => {
         if (index - 1 < 0) {
             return;
@@ -147,7 +147,9 @@ function DetailQuiz() {
                     </button>
                 </div>
             </div>
-            <div className="detail__answer">answer-right</div>
+            <div className="detail__answer">
+                <ContentRight quizQuestion={quizQuestion} />
+            </div>
             <ModalResult
                 show={isShowModalResult}
                 setShow={setIsShowModalResult}
