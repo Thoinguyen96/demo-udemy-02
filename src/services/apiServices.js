@@ -53,6 +53,9 @@ export const postSubmitQuiz = (data) => {
 export const postAssignQuiz = (quizId, userId) => {
     return instance.post("api/v1/quiz-assign-to-user", { quizId, userId });
 };
+export const postUpdateQuiz = (data) => {
+    return instance.post("api/v1/quiz-upsert-qa", { ...data });
+};
 export const postCreateQuiz = (description, image, difficulty, name) => {
     const data = new FormData();
     data.append("description", description);

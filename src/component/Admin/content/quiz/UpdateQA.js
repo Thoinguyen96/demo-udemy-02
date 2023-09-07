@@ -14,6 +14,7 @@ import {
     getQuizWidthQA,
     postCreateNewAnswerForQuiz,
     postCreateNewQuestionForQuiz,
+    postUpdateQuiz,
 } from "../../../../services/apiServices";
 function UpdateQA() {
     const initQuiz = [
@@ -241,14 +242,29 @@ function UpdateQA() {
             }
         }
 
-        for (const ques of question) {
-            const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, ques.description, ques.imageFile);
-            for (const answers of ques.answers) {
-                await postCreateNewAnswerForQuiz(answers.description, answers.isCorrect, q.DT.id);
+        const toBase64 = (file) =>
+            new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+            });
+
+        const questionClone = _.cloneDeep(question);
+        for (let i = 0; i < questionClone.length; i++) {
+            if (questionClone[i].imageFile) {
+                questionClone[i].imageFile = await toBase64(questionClone[i].imageFile);
             }
         }
-        toast.success(`Save quiz success `);
-        setQuestion(initQuiz);
+        const data = await postUpdateQuiz({
+            quizId: selectedQuiz.value,
+            questions: questionClone,
+        });
+        console.log(data);
+        if (data && data.EC === 0) {
+            toast.success(data.EM);
+            fetchQuizWidthQA();
+        }
     };
 
     return (
