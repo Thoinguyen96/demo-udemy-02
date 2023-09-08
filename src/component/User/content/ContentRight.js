@@ -1,9 +1,10 @@
 import { AiOutlineCheck } from "react-icons/ai";
 import { BsArrowCounterclockwise } from "react-icons/bs";
+import CountDown from "./CountDown";
 
 function ContentRight(props) {
-    const { quizQuestion } = props;
-    console.log(quizQuestion);
+    const { quizQuestion, handleFinish } = props;
+
     return (
         <div className="content__right-wrap">
             <div className="content__right">
@@ -11,7 +12,7 @@ function ContentRight(props) {
                     <AiOutlineCheck />
                     <span>Chấm điểm</span>
                 </div>
-                <span>10:10:10</span>
+                <CountDown handleFinish={handleFinish} />
                 <div className="content__right-icon">
                     <BsArrowCounterclockwise />
                     <span>Làm lại</span>

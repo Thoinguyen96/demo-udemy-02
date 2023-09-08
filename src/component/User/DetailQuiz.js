@@ -148,7 +148,7 @@ function DetailQuiz() {
                 </div>
             </div>
             <div className="detail__answer">
-                <ContentRight quizQuestion={quizQuestion} />
+                <ContentRight quizQuestion={quizQuestion} handleFinish={handleFinish} />
             </div>
             <ModalResult
                 show={isShowModalResult}

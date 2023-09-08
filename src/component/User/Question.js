@@ -10,7 +10,6 @@ function Question(props) {
     if (_.isEmpty(quizQuestions)) {
         return;
     }
-    console.log(quizQuestions);
     // const handleHandleCheckbox = (answerId, questionId) => {
     //     props.handleCheckbox(answerId, questionId);
     // };
