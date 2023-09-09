@@ -5,6 +5,7 @@ import { useRef } from "react";
 function ContentRight(props) {
     const { quizQuestion, handleFinish, setIndex } = props;
     const classRef = useRef([]);
+
     const handleClassSelector = (ques) => {
         if (ques.answers && ques.answers.length > 0) {
             const isClass = ques.answers.find((item) => item.isSelector === true);
