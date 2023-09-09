@@ -74,7 +74,7 @@
     .content__right-wrap {
         border: 1px solid #ccc;
 
-        width: 350px;
+        width: 100%;
         .content__right {
             background-color: var(--color__default);
             align-items: center;
@@ -96,7 +96,7 @@
             display: flex;
             gap: 27px;
 
-            .answer {
+            .question__each {
                 cursor: pointer;
                 border: 1px solid #ccc;
                 align-items: center;
@@ -104,9 +104,20 @@
                 display: flex;
                 width: 30px;
                 height: 30px;
+                user-select: none;
                 border-radius: 50%;
                 &:hover {
                     color: var(--color__default);
+                }
+                &.selected {
+                    background-color: #ccc;
+                }
+                &.click {
+                    color: var(--color__default);
+                }
+                &.click_on-selected {
+                    color: var(--color__default);
+                    background-color: #ccc;
                 }
             }
         }
