@@ -33,7 +33,12 @@ function Login() {
             setLoading(false);
         }
     };
-
+    const handleKeydown = (e) => {
+        console.log(e.key);
+        if (e.key === "Enter") {
+            handleLogIn();
+        }
+    };
     return (
         <div className="login__wrap  ">
             <LoadingBar color="#f11946" ref={ref} />
@@ -63,6 +68,7 @@ function Login() {
                     <br></br>
                     <label className="desc">password</label>
                     <input
+                        onKeyDown={(e) => handleKeydown(e)}
                         className="desc content__input"
                         type="password"
                         onChange={(even) => setPassword(even.target.value)}
