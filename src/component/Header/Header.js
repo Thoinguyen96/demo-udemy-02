@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { postLogOut } from "../../services/apiServices";
 import { toast } from "react-toastify";
 import { doLogOut } from "../../redux/action/userAction";
+import Language from "./Language";
 function Header() {
     const account = useSelector((state) => state.user.account);
     const isAuthenticalted = useSelector((state) => state.user.isAuthenticalted);
@@ -57,6 +58,7 @@ function Header() {
                         ) : (
                             <NavDropdown title="Setting" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.4">Profile</NavDropdown.Item>
+                                <Language />
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item onClick={handleLogout}>Log out</NavDropdown.Item>
                             </NavDropdown>
