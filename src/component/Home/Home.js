@@ -2,9 +2,11 @@ import VideoHome from "../../assets/Videos/video-homepage.mp4";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import routes from "../../configs/Configs";
+import { useTranslation, Trans } from "react-i18next";
 function Home() {
     const isAuthenticalted = useSelector((state) => state.user.isAuthenticalted);
     const navigate = useNavigate();
+    const { t } = useTranslation();
     return (
         <div className="home-container">
             <video className="video" autoPlay muted loop>
@@ -12,18 +14,18 @@ function Home() {
             </video>
             <div className="home-container__wrap">
                 <div className="home-content">
-                    <h1 className="title">Forms that break the norm</h1>
+                    <h1 className="title">{t("home.title1")}</h1>
                     <p className="desc">
-                        Get more data—like signups, feedback, and anything else—with forms designed to be{" "}
-                        <strong>refreshingly different</strong>.
+                        {t("home.title2")}
+                        <strong>{t("home.title3")}</strong>.
                     </p>
                     {isAuthenticalted === false ? (
                         <button onClick={() => navigate(routes.login)} className="btn btn-primary">
-                            Sign in to get started—free
+                            {t("home.title4")}
                         </button>
                     ) : (
                         <button onClick={() => navigate(routes.user)} className="btn btn-primary">
-                            Start Quiz Now
+                            {t("home.title5")}
                         </button>
                     )}
                 </div>

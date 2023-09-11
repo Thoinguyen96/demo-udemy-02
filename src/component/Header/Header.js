@@ -10,7 +10,11 @@ import { postLogOut } from "../../services/apiServices";
 import { toast } from "react-toastify";
 import { doLogOut } from "../../redux/action/userAction";
 import Language from "./Language";
+import { useTranslation, Trans } from "react-i18next";
+
 function Header() {
+    const { t } = useTranslation();
+
     const account = useSelector((state) => state.user.account);
     const isAuthenticalted = useSelector((state) => state.user.isAuthenticalted);
     const navigate = useNavigate();
@@ -35,13 +39,13 @@ function Header() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <NavLink className="navbar-text" to={routes.home}>
-                            Home
+                            {t("header.title1")}
                         </NavLink>
                         <NavLink className="navbar-text" to={routes.user}>
-                            User
+                            {t("header.title2")}
                         </NavLink>
                         <NavLink className="navbar-text" to={routes.admin}>
-                            Admin
+                            {t("header.title3")}
                         </NavLink>
                     </Nav>
                     <Nav>
