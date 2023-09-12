@@ -34,6 +34,9 @@ export const getQuizWidthQA = (quizId) => {
 export const getListQuizByUser = () => {
     return instance.get("api/v1/quiz-by-participant");
 };
+export const getOverView = () => {
+    return instance.get("api/v1/overview");
+};
 export const getQuizId = (id) => {
     return instance.get(`api/v1/questions-by-quiz?quizId=${id}`);
 };

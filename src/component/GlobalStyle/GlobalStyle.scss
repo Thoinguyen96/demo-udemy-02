@@ -1,5 +1,6 @@
 :root {
     --color__default: #dc3545;
+    --dashColor: rgba(0, 0, 0, 0.175);
 }
 
 * {
@@ -262,4 +263,8 @@ body::-webkit-scrollbar-thumb:hover {
         padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
     }
     margin-left: 6px;
+}
+.flex__menu {
+    display: flex;
+    gap: 10px;
 }

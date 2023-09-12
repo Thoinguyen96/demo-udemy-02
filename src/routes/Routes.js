@@ -5,7 +5,7 @@ import routes from "../configs/Configs";
 import Home from "../component/Home/Home";
 import Admin from "../component/Admin/Admin";
 import User from "../component/User/ListQuiz";
-import DashBoard from "../component/pages/DashBoard";
+
 import ManageUser from "../component/pages/ManageUser";
 import ConfigLayout from "../component/Layout/ConfigLayout";
 
@@ -17,12 +17,15 @@ import DetailQuiz from "../component/User/DetailQuiz";
 import QuizManage from "../component/Admin/content/quiz/QuizManage";
 import ManageQuestion from "../component/Admin/content/question/ManageQuestion";
 import PrivateLayout from "../component/Layout/PrivateLayout";
+import DashBoard from "../component/Admin/content/DashBoard";
+import DashBoardLayout from "../component/Layout/DashBoardLayout";
 
 const publicRoutes = [
-    { path: routes.dashBoard, component: DashBoard, layout: ConfigLayout },
     { path: routes.manageUser, component: ManageUser, layout: ConfigLayout },
     { path: routes.quiz, component: QuizManage, layout: ConfigLayout },
     { path: routes.admin, component: Admin, layout: ConfigLayout },
+
+    { path: routes.dashBoard, component: DashBoard, layout: DashBoardLayout },
 
     { path: routes.manageQuestion, component: ManageQuestion, layout: ConfigLayout },
 

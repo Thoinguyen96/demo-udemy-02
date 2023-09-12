@@ -260,7 +260,7 @@ function UpdateQA() {
             quizId: selectedQuiz.value,
             questions: questionClone,
         });
-        console.log(data);
+
         if (data && data.EC === 0) {
             toast.success(data.EM);
             fetchQuizWidthQA();

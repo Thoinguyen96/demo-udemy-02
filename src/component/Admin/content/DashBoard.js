@@ -1,0 +1,102 @@
+import "./DashBoard.scss";
+import React, { PureComponent, useEffect, useState } from "react";
+
+import {
+    BarChart,
+    Bar,
+    Cell,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    ReferenceLine,
+    ResponsiveContainer,
+} from "recharts";
+import { getOverView } from "../../../services/apiServices";
+import { toast } from "react-toastify";
+function DashBoard() {
+    const [dataOverView, setDataOverView] = useState([]);
+    const [dataDashBoard, setDataDashBoard] = useState([]);
+
+    const data = [
+        {
+            name: "Quiz",
+            quiz: dataOverView?.others?.countQuiz ?? 0,
+        },
+        {
+            name: "Questions",
+            ques: dataOverView?.others?.countQuestions ?? 0,
+        },
+        {
+            name: "Answers",
+            answer: dataOverView?.others?.countAnswers ?? 0,
+        },
+    ];
+    useEffect(() => {
+        fetchDataDashBoard();
+    }, []);
+    const fetchDataDashBoard = async () => {
+        let res = await getOverView();
+        if (res && res.EC === 0) {
+            setDataOverView(res.DT);
+        }
+    };
+    return (
+        <div className="wrapper__dash-board">
+            <h2>Dash board</h2>
+            <div className="dash__board">
+                <div className="dash__board-content">
+                    <div className="total">
+                        <span>Total-User</span>
+                        <span>
+                            {dataOverView && dataOverView.users && dataOverView.users.total
+                                ? dataOverView.users.total
+                                : 0}
+                        </span>
+                    </div>
+                    <div className="total">
+                        <span>Total-Quiz</span>
+                        <span>
+                            {dataOverView && dataOverView.others && dataOverView.others.countQuiz
+                                ? dataOverView.others.countQuiz
+                                : 0}
+                        </span>
+                    </div>
+                    <div className="total">
+                        <span>Total-Question</span>
+                        <span>
+                            {dataOverView && dataOverView.others && dataOverView.others.countQuestions
+                                ? dataOverView.others.countQuestions
+                                : 0}
+                        </span>
+                    </div>
+                    <div className="total">
+                        <span>Total-Answer</span>
+                        <span>
+                            {dataOverView && dataOverView.others && dataOverView.others.countAnswers
+                                ? dataOverView.others.countAnswers
+                                : 0}
+                        </span>
+                    </div>
+                </div>
+                <div className="content__right">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={data}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="name" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="quiz" fill="#8884d8" />
+                            <Bar dataKey="ques" fill="#0d6efd" />
+                            <Bar dataKey="answer" fill="green" />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default DashBoard;

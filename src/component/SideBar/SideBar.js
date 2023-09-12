@@ -1,23 +1,7 @@
 import { LogoHome, LogoRact } from "../../assets/Icons/icon";
 import "react-pro-sidebar/dist/css/styles.css";
-import {
-    FaTachometerAlt,
-    FaGem,
-    FaList,
-    FaGithub,
-    FaRegLaughWink,
-    BiLogoReact,
-    FaReact,
-} from "react-icons/fa";
-import {
-    ProSidebar,
-    Menu,
-    MenuItem,
-    SubMenu,
-    SidebarHeader,
-    SidebarFooter,
-    SidebarContent,
-} from "react-pro-sidebar";
+import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, BiLogoReact, FaReact } from "react-icons/fa";
+import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from "react-pro-sidebar";
 import sidebarBg from "../../assets/bg2.jpg";
 import { Link } from "react-router-dom";
 import routes from "../../configs/Configs";
@@ -55,21 +39,14 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
 
                 <SidebarContent>
                     <Menu iconShape="circle">
-                        <MenuItem
-                            icon={<FaTachometerAlt />}
-                            suffix={<span className="badge red">New</span>}
-                        >
+                        <MenuItem icon={<FaTachometerAlt />} suffix={<span className="badge red">New</span>}>
                             dashboard
+                            <Link to={routes.dashBoard} />
                         </MenuItem>
                         <MenuItem icon={<FaGem />}> components </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
-                        <SubMenu
-                            suffix={
-                                <span className="badge yellow">Tính Năng</span>
-                            }
-                            icon={<FaRegLaughWink />}
-                        >
+                        <SubMenu suffix={<span className="badge yellow">Tính Năng</span>} icon={<FaRegLaughWink />}>
                             <MenuItem>
                                 Quản lý Users
                                 <Link to={routes.manageUser} />

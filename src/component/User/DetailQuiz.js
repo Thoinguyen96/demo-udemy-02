@@ -39,6 +39,7 @@ function DetailQuiz() {
 
                         answers.push(item.answers);
                     });
+                    answers = _.orderBy(answers, ["id"], ["asc"]);
                     return { questionId: key, answers, questionDescription, image };
                 })
                 .value();
@@ -111,7 +112,6 @@ function DetailQuiz() {
         }
 
         let response = await postSubmitQuiz(payLoad);
-        console.log("response", response);
 
         if (response && response.EC === 0) {
             setIsShowModalResult(true);
