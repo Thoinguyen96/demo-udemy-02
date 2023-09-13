@@ -1,0 +1,41 @@
+input.input__tabs-profile {
+    border-radius: 999px;
+    border: 1px solid red;
+    outline: none;
+}
+.wrap__profile {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+
+    .form-group {
+        font-size: 1.5rem;
+        width: 30%;
+    }
+    .form-control {
+        width: 100%;
+        font-size: 1.5rem;
+        height: 40px;
+    }
+}
+
+.tab-content {
+    .wrapper__upload {
+        display: flex;
+        flex-direction: column;
+        .image_file {
+            width: 100px;
+        }
+        .view-upload {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn__upload {
+            width: 100px;
+        }
+    }
+}

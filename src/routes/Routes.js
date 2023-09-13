@@ -7,7 +7,7 @@ import Admin from "../component/Admin/Admin";
 import User from "../component/User/ListQuiz";
 
 import ManageUser from "../component/pages/ManageUser";
-import ConfigLayout from "../component/Layout/ConfigLayout";
+import ConfigLayout from "../component/Layout/ConfigLayout"; // temporarily not in use
 
 import LogIn from "../component/pages/LogIn";
 import SignUp from "../component/pages/SideUp";
@@ -21,13 +21,13 @@ import DashBoard from "../component/Admin/content/DashBoard";
 import DashBoardLayout from "../component/Layout/DashBoardLayout";
 
 const publicRoutes = [
-    { path: routes.manageUser, component: ManageUser, layout: ConfigLayout },
-    { path: routes.quiz, component: QuizManage, layout: ConfigLayout },
-    { path: routes.admin, component: Admin, layout: ConfigLayout },
+    { path: routes.manageUser, component: ManageUser, layout: DashBoardLayout },
+    { path: routes.quiz, component: QuizManage, layout: DashBoardLayout },
+    { path: routes.admin, component: Admin, layout: DashBoardLayout },
 
     { path: routes.dashBoard, component: DashBoard, layout: DashBoardLayout },
 
-    { path: routes.manageQuestion, component: ManageQuestion, layout: ConfigLayout },
+    { path: routes.manageQuestion, component: ManageQuestion, layout: DashBoardLayout },
 
     { path: routes.home, component: Home },
     { path: routes.user, component: User, layout: PrivateLayout }, //layout not logged in yet

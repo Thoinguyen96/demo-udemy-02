@@ -5,9 +5,12 @@ import { doLogOut } from "../../redux/action/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import routes from "../../configs/Configs";
+import { useTranslation } from "react-i18next";
+
 function LogOut(props) {
+    const { handleShowModalProfile } = props;
     const account = useSelector((state) => state.user.account);
-    console.log(account.refresh_token);
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -22,12 +25,15 @@ function LogOut(props) {
             toast.error(res.EM);
         }
     };
+
     return (
-        <NavDropdown title="Setting" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.4">Profile</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item onClick={handleLogout}>Log out</NavDropdown.Item>
-        </NavDropdown>
+        <>
+            <NavDropdown title={t("logOut.title1")} id="basic-nav-dropdown">
+                <NavDropdown.Item onClick={handleShowModalProfile}>{t("logOut.title2")}</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogout}>{t("logOut.title3")}</NavDropdown.Item>
+            </NavDropdown>
+        </>
     );
 }
 

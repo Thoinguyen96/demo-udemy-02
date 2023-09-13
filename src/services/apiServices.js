@@ -77,9 +77,16 @@ export const postCreateNewQuestionForQuiz = (quiz_id, description, questionImage
     data.append("questionImage", questionImage);
     return instance.post("api/v1/question", data);
 };
+export const UpdateUserInfo = (username, userImage) => {
+    const data = new FormData();
+    data.append("username", username);
+    data.append("userImage", userImage);
+    return instance.post("api/v1/profile", data);
+};
 export const postCreateNewAnswerForQuiz = (description, correct_answer, question_id) => {
     return instance.post("api/v1/answer", { description, correct_answer, question_id });
 };
+
 export const getPaginationUser = (page, limit) => {
     return instance.get(`api/v1/participant?page=${page}&limit=${limit}`);
 };

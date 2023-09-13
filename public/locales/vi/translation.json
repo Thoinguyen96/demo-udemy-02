@@ -10,5 +10,86 @@
         "title1": "Trang chủ",
         "title2": "Tài khoản",
         "title3": "Quản trị viên"
+    },
+    "logOut": {
+        "title1": "Cài đặt",
+        "title2": "Cá nhân",
+        "title3": "Đăng xuất"
+    },
+    "language": {
+        "title1": "Ngôn ngữ"
+    },
+    "sidebar": {
+        "title1": "Thống kê",
+        "title2": "Tính năng",
+        "title3": "Quản lý tài khoản",
+        "title4": "Quản lý bài kiểm tra",
+        "title5": "Quản lý câu hỏi"
+    },
+    "dashBoard": {
+        "title1": "Thống kê",
+        "title2": "Tổng số câu hỏi",
+        "title3": "Tổng số bài kiểm tra",
+        "title4": "Tổng số câu hỏi",
+        "title5": "Tổng số đáp án",
+        "title6": "Bài kiểm tra",
+        "title7": "Câu hỏi",
+        "title8": "Đáp án"
+    },
+    "QuizManage": {
+        "title1": "Tạo mới bài kiểm tra",
+        "title2": "Cập nhật bài kiểm tra",
+        "title3": "Gáng bài kiểm tra",
+        "title4": "Tên",
+        "title5": "Nội dung",
+        "title6": "Tải ảnh lên",
+        "title7": "Chọn bài kiểm tra",
+        "title8": "Lưu"
+    },
+    "TableQuiz": {
+        "name": "Tên",
+        "description": "Nội dung",
+        "type": "Chọn",
+        "action": "Hành động",
+        "edit": "Sửa",
+        "delete": "Xóa"
+    },
+    "UpdateQA": {
+        "select": "Chọn bài kiểm tra",
+        "select2": "Chọn...",
+        "addQuestion": "Thêm câu hỏi",
+        "upload": "tải lên",
+        "checked": "Chọn",
+        "answer": "Đáp Án",
+        "save": "Lưu"
+    },
+    "AssignUser": {
+        "select": "Chọn bài kiểm tra",
+        "select2": "Chọn tài khoản",
+        "assign": "Lưu"
+    },
+    "ManageQues": {
+        "upload": "tải lên",
+        "manage": "Trang quản lý câu hỏi",
+        "addQues": "Thêm câu hỏi",
+        "answer": "Đáp án",
+        "save": "Lưu"
+    },
+    "ModalProfile": {
+        "info": "Quản lý thông tin người dùng",
+        "infoUser": "Thông tin",
+        "pass": "Mật khẩu",
+        "history": "Lịch sử"
+    },
+    "TabOnProfile": {
+        "email": "Địa chỉ Email",
+        "pass": "Mật khẩu",
+        "type": "Vai trò"
+    },
+    "UserInfo": {
+        "username": "Tên người dùng",
+        "email": "Địa chỉ email",
+
+        "type": "Vai trò"
     }
 }

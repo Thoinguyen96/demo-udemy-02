@@ -1,5 +1,6 @@
 import "./DashBoard.scss";
 import React, { PureComponent, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
     BarChart,
@@ -14,22 +15,21 @@ import {
     ResponsiveContainer,
 } from "recharts";
 import { getOverView } from "../../../services/apiServices";
-import { toast } from "react-toastify";
 function DashBoard() {
     const [dataOverView, setDataOverView] = useState([]);
-    const [dataDashBoard, setDataDashBoard] = useState([]);
+    const { t } = useTranslation();
 
     const data = [
         {
-            name: "Quiz",
+            name: t("dashBoard.title6"),
             quiz: dataOverView?.others?.countQuiz ?? 0,
         },
         {
-            name: "Questions",
+            name: t("dashBoard.title7"),
             ques: dataOverView?.others?.countQuestions ?? 0,
         },
         {
-            name: "Answers",
+            name: t("dashBoard.title8"),
             answer: dataOverView?.others?.countAnswers ?? 0,
         },
     ];
@@ -44,11 +44,11 @@ function DashBoard() {
     };
     return (
         <div className="wrapper__dash-board">
-            <h2>Dash board</h2>
+            <h2>{t("dashBoard.title1")}</h2>
             <div className="dash__board">
                 <div className="dash__board-content">
                     <div className="total">
-                        <span>Total-User</span>
+                        <span>{t("dashBoard.title2")}</span>
                         <span>
                             {dataOverView && dataOverView.users && dataOverView.users.total
                                 ? dataOverView.users.total
@@ -56,7 +56,7 @@ function DashBoard() {
                         </span>
                     </div>
                     <div className="total">
-                        <span>Total-Quiz</span>
+                        <span>{t("dashBoard.title3")}</span>
                         <span>
                             {dataOverView && dataOverView.others && dataOverView.others.countQuiz
                                 ? dataOverView.others.countQuiz
@@ -64,7 +64,7 @@ function DashBoard() {
                         </span>
                     </div>
                     <div className="total">
-                        <span>Total-Question</span>
+                        <span>{t("dashBoard.title4")}</span>
                         <span>
                             {dataOverView && dataOverView.others && dataOverView.others.countQuestions
                                 ? dataOverView.others.countQuestions
@@ -72,7 +72,7 @@ function DashBoard() {
                         </span>
                     </div>
                     <div className="total">
-                        <span>Total-Answer</span>
+                        <span>{t("dashBoard.title5")}</span>
                         <span>
                             {dataOverView && dataOverView.others && dataOverView.others.countAnswers
                                 ? dataOverView.others.countAnswers

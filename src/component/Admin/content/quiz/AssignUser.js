@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { getAllDataQuiz, getAllUser, postAssignQuiz } from "../../../../services/apiServices";
 import Select from "react-select";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 function AssignUser(props) {
     const [listQuiz, setListQuiz] = useState([]);
     const [selectedQuiz, setSelectedQuiz] = useState([]);
     const [listUser, setListUser] = useState([]);
     const [selectedUser, setSelectedUser] = useState([]);
+    const { t } = useTranslation();
+
     useEffect(() => {
         fetchAllQuiz();
         fetchAllUser();
@@ -50,16 +53,16 @@ function AssignUser(props) {
         <div className="Assign__user">
             <div className="row">
                 <div className="col-6 mt-3">
-                    <label>Select Quiz:</label>
+                    <label>{t("AssignUser.select")}:</label>
                     <Select defaultValue={selectedQuiz} onChange={setSelectedQuiz} options={listQuiz} />
                 </div>
                 <div className="col-6 mt-3">
-                    <label>Select User:</label>
+                    <label>{t("AssignUser.select2")}:</label>
                     <Select defaultValue={selectedUser} onChange={setSelectedUser} options={listUser} />
                 </div>
             </div>
             <button onClick={handleAssignQuiz} className="btn btn-primary">
-                Assign
+                {t("AssignUser.assign")}
             </button>
         </div>
     );

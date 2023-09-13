@@ -7,6 +7,7 @@ import Select from "react-select";
 import _, { isEmpty } from "lodash";
 import Lightbox from "react-awesome-lightbox";
 import "./UpdateQA.scss";
+import { useTranslation } from "react-i18next";
 
 import { toast } from "react-toastify";
 import {
@@ -17,6 +18,8 @@ import {
     postUpdateQuiz,
 } from "../../../../services/apiServices";
 function UpdateQA() {
+    const { t } = useTranslation();
+
     const initQuiz = [
         {
             id: uuidv4(),
@@ -269,13 +272,13 @@ function UpdateQA() {
 
     return (
         <div>
-            <label>Select Quiz</label>
+            <label>{t("UpdateQA.select")}</label>
 
             <div className="col-6 mt-3">
                 <Select defaultValue={selectedQuiz} onChange={setSelectedQuiz} options={listQuiz} />
             </div>
             <div className="form__wrapper mt-3">
-                <label>Add question</label>
+                <label>{t("UpdateQA.addQuestion")}</label>
                 {question &&
                     question.length > 0 &&
                     question.map((ques, index) => {
@@ -291,7 +294,9 @@ function UpdateQA() {
                                             }
                                             value={ques.description}
                                         />
-                                        <label className="label_padding">Add question {index + 1}</label>
+                                        <label className="label_padding">
+                                            {t("UpdateQA.addQuestion")} {index + 1}
+                                        </label>
                                     </form>
                                     <input
                                         onChange={(event) => handleUploadFile(event, ques.id)}
@@ -361,7 +366,9 @@ function UpdateQA() {
                                                         }
                                                         id="floatingInputValue"
                                                     />
-                                                    <label className="label_padding">answers {key + 1} </label>
+                                                    <label className="label_padding">
+                                                        {t("UpdateQA.answer")} {key + 1}{" "}
+                                                    </label>
                                                 </form>
                                                 <BsPlusCircleFill
                                                     className="icon__add"
@@ -382,7 +389,7 @@ function UpdateQA() {
                         );
                     })}
                 <button onClick={handleSaveQuestion} className="btn btn-danger mt-3">
-                    Save
+                    {t("UpdateQA.save")}
                 </button>
             </div>
             {isPreviewImage === true && (

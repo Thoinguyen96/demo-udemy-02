@@ -10,5 +10,80 @@
         "title1": "Home",
         "title2": "User",
         "title3": "Admin"
+    },
+    "logOut": {
+        "title1": "Setting",
+        "title2": "Profile",
+        "title3": "Log out"
+    },
+    "language": {
+        "title1": "Language"
+    },
+
+    "sidebar": {
+        "title1": "Dashboard",
+        "title2": "Feature",
+        "title3": "Manage user",
+        "title4": "Manage quiz",
+        "title5": "Manage question"
+    },
+    "dashBoard": {
+        "title1": "Dashboard",
+        "title2": "Total user",
+        "title3": "Total quiz",
+        "title4": "Total question",
+        "title5": "Total answer",
+        "title6": " Quiz",
+        "title7": "Question",
+        "title8": "Answer"
+    },
+    "QuizManage": {
+        "title1": "Add new quiz",
+        "title2": "Update quiz",
+        "title3": "Assign quiz",
+        "title4": "Name",
+        "title5": "Description",
+        "title6": "UpLoad image",
+        "title7": "Quiz type...",
+        "title8": "Save"
+    },
+    "TableQuiz": {
+        "name": "Name",
+        "description": "Description",
+        "type": "Type",
+        "action": "action"
+    },
+    "UpdateQA": {
+        "select": "Select quiz",
+        "select2": "Select...",
+        "addQuestion": "Add question",
+        "upload": "tải lên",
+        "checked": "Select",
+        "answer": "Answer",
+        "save": "Save"
+    },
+    "ManageQues": {
+        "upload": "tải lên",
+
+        "manage": "Manage question",
+        "addQues": "Add question",
+        "answer": "Answer",
+        "save": "Save"
+    },
+    "ModalProfile": {
+        "info": "Manage info user",
+        "infoUser": "Main info",
+        "pass": "Pass word",
+        "history": "history"
+    },
+    "TabOnProfileƠ": {
+        "email": "Email",
+        "pass": "Pass word",
+        "type": "Type"
+    },
+    "UserInfo": {
+        "username": "User name",
+        "email": "Email",
+        "type": "Type"
     }
 }

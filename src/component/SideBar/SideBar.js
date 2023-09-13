@@ -5,8 +5,11 @@ import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, Side
 import sidebarBg from "../../assets/bg2.jpg";
 import { Link } from "react-router-dom";
 import routes from "../../configs/Configs";
+import { useTranslation } from "react-i18next";
 
 const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
+    const { t } = useTranslation();
+
     return (
         <>
             <ProSidebar
@@ -33,31 +36,34 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
                         }}
                     >
                         <FaReact className="navbar-icon-react" />
-                        NGUYỄN VĂN THỜI
+                        <span className="logo__name">NGUYỄN VĂN THỜI</span>
                     </Link>
                 </SidebarHeader>
 
                 <SidebarContent>
                     <Menu iconShape="circle">
-                        <MenuItem icon={<FaTachometerAlt />} suffix={<span className="badge red">New</span>}>
-                            dashboard
+                        <MenuItem icon={<FaTachometerAlt />}>
+                            {t("sidebar.title1")}
                             <Link to={routes.dashBoard} />
                         </MenuItem>
-                        <MenuItem icon={<FaGem />}> components </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
-                        <SubMenu suffix={<span className="badge yellow">Tính Năng</span>} icon={<FaRegLaughWink />}>
+                        <SubMenu
+                            suffix={<span className="badge yellow"> {t("sidebar.title2")}</span>}
+                            icon={<FaRegLaughWink />}
+                        >
                             <MenuItem>
-                                Quản lý Users
+                                {t("sidebar.title3")}
+
                                 <Link to={routes.manageUser} />
                             </MenuItem>
                             <MenuItem>
                                 <Link to={routes.quiz} />
-                                Quảng lý bài quiz
+                                {t("sidebar.title4")}
                             </MenuItem>
                             <MenuItem>
                                 <Link to={routes.manageQuestion} />
-                                Quản lý câu hỏi
+                                {t("sidebar.title5")}
                             </MenuItem>
                         </SubMenu>
                     </Menu>

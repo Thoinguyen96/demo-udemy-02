@@ -7,6 +7,8 @@ import Select from "react-select";
 import "./ManageQuestion.scss";
 import _ from "lodash";
 import Lightbox from "react-awesome-lightbox";
+import { useTranslation } from "react-i18next";
+
 import {
     getAllDataQuiz,
     postCreateNewQuestionForQuiz,
@@ -14,6 +16,8 @@ import {
 } from "../../../../services/apiServices";
 import { toast } from "react-toastify";
 function ManageQuestion() {
+    const { t } = useTranslation();
+
     const initQuiz = [
         {
             id: uuidv4(),
@@ -258,12 +262,12 @@ function ManageQuestion() {
 
     return (
         <div>
-            ManageQuestion page
+            <h2> {t("ManageQues.manage")}</h2>
             <div className="col-6 mt-3">
                 <Select defaultValue={selectedQuiz} onChange={setSelectedQuiz} options={listQuiz} />
             </div>
             <div className="form__wrapper mt-3">
-                <label>Add question</label>
+                <label>{t("ManageQues.addQues")}</label>
                 {question &&
                     question.length > 0 &&
                     question.map((ques, index) => {
@@ -279,7 +283,9 @@ function ManageQuestion() {
                                             }
                                             value={ques.description}
                                         />
-                                        <label className="label_padding">Add question {index + 1}</label>
+                                        <label className="label_padding">
+                                            {t("ManageQues.addQues")} {index + 1}
+                                        </label>
                                     </form>
                                     <input
                                         onChange={(event) => handleUploadFile(event, ques.id)}
@@ -294,7 +300,7 @@ function ManageQuestion() {
                                         {ques.imageName ? (
                                             <span onClick={() => handlePreviewImage(ques.id)}>{ques.imageName}</span>
                                         ) : (
-                                            "0 file upload"
+                                            <span>0 {t("ManageQues.upload")}</span>
                                         )}
                                     </label>
                                     <div className="wrapper__icon">
@@ -348,7 +354,9 @@ function ManageQuestion() {
                                                         }
                                                         id="floatingInputValue"
                                                     />
-                                                    <label className="label_padding">Answer {key + 1} </label>
+                                                    <label className="label_padding">
+                                                        {t("ManageQues.answer")} {key + 1}{" "}
+                                                    </label>
                                                 </form>
                                                 <BsPlusCircleFill
                                                     className="icon__add"
@@ -369,7 +377,7 @@ function ManageQuestion() {
                         );
                     })}
                 <button onClick={handleSaveQuestion} className="btn btn-danger mt-3">
-                    Save
+                    {t("ManageQues.save")}
                 </button>
             </div>
             {isPreviewImage === true && (

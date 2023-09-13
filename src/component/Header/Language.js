@@ -8,7 +8,7 @@ function Language(props) {
     };
     return (
         <>
-            <NavDropdown className="language" title="Language" id="basic-nav-dropdown2">
+            <NavDropdown className="language" title={t("language.title1")} id="basic-nav-dropdown2">
                 <NavDropdown.Item onClick={() => handleChangeLanguage("vi")}>Vi</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={() => handleChangeLanguage("en")}>English</NavDropdown.Item>

@@ -6,10 +6,15 @@ import "react-toastify/dist/ReactToastify.css";
 import PrivateLayout from "./PrivateLayout";
 import Language from "../Header/Language";
 import LogOut from "../Header/LogOut";
+import ModalProfile from "../Header/ModalProfile";
 
 const DashBoardLayout = ({ children }) => {
-    const [collapsed, setCollapsed] = useState(false);
+    const [show, setShow] = useState(false);
 
+    const [collapsed, setCollapsed] = useState(false);
+    const handleShowModalProfile = () => {
+        setShow(true);
+    };
     return (
         <div className="admin-container">
             <SideBar collapsed={collapsed} />
@@ -17,7 +22,8 @@ const DashBoardLayout = ({ children }) => {
                 <div className="header__dash-board">
                     <FaBars onClick={() => setCollapsed(!collapsed)} />
                     <div className="flex__menu">
-                        <LogOut />
+                        <LogOut handleShowModalProfile={handleShowModalProfile} />
+                        <ModalProfile show={show} setShow={setShow} />
 
                         <Language />
                     </div>

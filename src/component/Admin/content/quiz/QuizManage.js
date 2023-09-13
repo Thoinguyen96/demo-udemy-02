@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import ModalEditQuiz from "./ModalEditQuiz";
 import UpdateQA from "./UpdateQA";
 import AssignUser from "./AssignUser";
+import { useTranslation } from "react-i18next";
 
 const options = [
     { value: "Easy", label: "Easy" },
@@ -31,6 +32,8 @@ function QuizManage(props) {
             setImage(event.target.files[0]);
         }
     };
+    const { t } = useTranslation();
+
     const handleSaveManage = async () => {
         if (!description && !name) {
             toast.error("Name/description is require");
@@ -67,10 +70,10 @@ function QuizManage(props) {
         <div className="QuizManage__wrap">
             <Accordion accordion="0">
                 <Accordion.Item eventKey="0">
-                    <Accordion.Header>Add new quiz</Accordion.Header>
+                    <Accordion.Header>{t("QuizManage.title1")}</Accordion.Header>
                     <Accordion.Body>
                         <fieldset className="border p-2">
-                            <legend className="float-none w-auto">Add new quiz:</legend>
+                            <legend className="float-none w-auto">{t("QuizManage.title1")}:</legend>
                             <div className="form-floating mb-3">
                                 <input
                                     type="text"
@@ -79,7 +82,7 @@ function QuizManage(props) {
                                     onChange={(event) => setName(event.target.value)}
                                     value={name}
                                 />
-                                <label>Name</label>
+                                <label>{t("QuizManage.title4")}</label>
                             </div>
                             <br />
                             <div className="form-floating mb-3">
@@ -90,10 +93,10 @@ function QuizManage(props) {
                                     onChange={(event) => setDescription(event.target.value)}
                                     value={description}
                                 />
-                                <label>Description</label>
+                                <label>{t("QuizManage.title5")}</label>
                             </div>
                             <div className="more__action">
-                                <label>Upload image</label>
+                                <label>{t("QuizManage.title6")}</label>
                                 <label htmlFor="Upload__file" className="btn btn-outline-primary">
                                     Choose File
                                 </label>
@@ -109,7 +112,7 @@ function QuizManage(props) {
                                     <Select
                                         defaultValue={type}
                                         onChange={setType}
-                                        placeholder="Quiz type..."
+                                        placeholder={t("QuizManage.title7")}
                                         options={options}
                                     />
                                 </div>
@@ -117,7 +120,7 @@ function QuizManage(props) {
                                     onClick={(event) => handleSaveManage(event)}
                                     className="btn btn-danger btn-lg mt-3"
                                 >
-                                    Save
+                                    {t("QuizManage.title8")}
                                 </button>
                             </div>
                         </fieldset>
@@ -133,7 +136,7 @@ function QuizManage(props) {
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
-                    <Accordion.Header>Update Quiz</Accordion.Header>
+                    <Accordion.Header>{t("QuizManage.title2")}</Accordion.Header>
                     <Accordion.Body>
                         <div>
                             <UpdateQA />
@@ -141,7 +144,7 @@ function QuizManage(props) {
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="3">
-                    <Accordion.Header>Assign Quiz</Accordion.Header>
+                    <Accordion.Header>{t("QuizManage.title3")}</Accordion.Header>
                     <Accordion.Body>
                         <div>
                             <AssignUser />
