@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import "./Profile.scss";
 import UserInfo from "./UserInfo";
+import ChangePassWord from "./ChangePassWord";
 function TabOnProfile() {
     const { t } = useTranslation();
 
@@ -13,7 +14,7 @@ function TabOnProfile() {
                 <UserInfo />
             </Tab>
             <Tab eventKey="Pass word" title={t("ModalProfile.pass")} className="input__tabs-profile">
-                {t("ModalProfile.pass")}
+                <ChangePassWord />
             </Tab>
             <Tab eventKey="History" title={t("ModalProfile.history")} className="input__tabs-profile">
                 {t("ModalProfile.history")}

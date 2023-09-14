@@ -91,5 +91,11 @@
         "email": "Địa chỉ email",
 
         "type": "Vai trò"
+    },
+    "ChangePassWord": {
+        "pass": "Mật khẩu",
+        "confirmPass": "Nhập lại Mật khẩu",
+        "newPass": "Mật khẩu mới",
+        "notConfirm": "Nhập lại mật khẩu không chính xác"
     }
 }

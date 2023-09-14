@@ -85,5 +85,11 @@
         "username": "User name",
         "email": "Email",
         "type": "Type"
+    },
+    "ChangePassWord": {
+        "pass": "Pass word",
+        "confirmPass": "confirmPass",
+        "newPass": "New pass word",
+        "notConfirm": "Password incorrect, please try again"
     }
 }

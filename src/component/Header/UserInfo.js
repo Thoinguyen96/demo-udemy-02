@@ -15,7 +15,6 @@ function UserInfo(props) {
     const [previewImage, setPreviewImage] = useState("");
     const { t } = useTranslation();
     const account = useSelector((state) => state.user.account);
-
     useEffect(() => {
         if (!_.isEmpty(account)) {
             setUserName(account.username);

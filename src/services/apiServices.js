@@ -86,7 +86,9 @@ export const UpdateUserInfo = (username, userImage) => {
 export const postCreateNewAnswerForQuiz = (description, correct_answer, question_id) => {
     return instance.post("api/v1/answer", { description, correct_answer, question_id });
 };
-
+export const upDatePassWord = (current_password, new_password) => {
+    return instance.post("api/v1/change-password", { current_password, new_password });
+};
 export const getPaginationUser = (page, limit) => {
     return instance.get(`api/v1/participant?page=${page}&limit=${limit}`);
 };

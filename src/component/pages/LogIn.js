@@ -34,7 +34,6 @@ function Login() {
         }
     };
     const handleKeydown = (e) => {
-        console.log(e.key);
         if (e.key === "Enter") {
             handleLogIn();
         }
