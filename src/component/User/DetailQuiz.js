@@ -2,13 +2,14 @@ import { useParams, useLocation } from "react-router-dom";
 import { getQuizId, postSubmitQuiz } from "../../services/apiServices";
 import { useEffect, useState } from "react";
 import _ from "lodash";
-import Question from "./Question";
+// import Question from "./Question";
 import { ModalResult } from "./ModalResult";
 import ContentRight from "./content/ContentRight";
 
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import routes from "../../configs/Configs";
 import { useTranslation } from "react-i18next";
+import Question from "./Question";
 
 function DetailQuiz() {
     const location = useLocation();
@@ -143,7 +144,6 @@ function DetailQuiz() {
                         {" "}
                         Quiz: {quizId} {location?.state?.titleQuiz}.
                     </h2>
-
                     <Question quizQuestion={quizQuestion} index={index} handleCheckbox={handleCheckbox} />
 
                     <div className="next__wrap">

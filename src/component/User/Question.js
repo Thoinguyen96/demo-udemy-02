@@ -10,9 +10,6 @@ function Question(props) {
     if (_.isEmpty(quizQuestions)) {
         return;
     }
-    // const handleHandleCheckbox = (answerId, questionId) => {
-    //     props.handleCheckbox(answerId, questionId);
-    // };
 
     return (
         <div>
@@ -21,13 +18,14 @@ function Question(props) {
                     <img
                         onClick={() => setIsPreviewImage(true)}
                         src={`data:image/jpeg;base64,${quizQuestions.image}`}
+                        alt=""
                     />
                     {isPreviewImage === true && (
                         <Lightbox
-                            image={`data:image/jpeg;base64,${quizQuestions.image}`}
-                            title="image"
                             onClose={() => setIsPreviewImage(false)}
-                        ></Lightbox>
+                            image={`data:image/jpeg;base64,${quizQuestions.image}`}
+                            title="Image Title"
+                        />
                     )}
                 </div>
             ) : (
