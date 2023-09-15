@@ -1,4 +1,3 @@
-import { LogoHome, LogoRact } from "../../assets/Icons/icon";
 import "react-pro-sidebar/dist/css/styles.css";
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, BiLogoReact, FaReact } from "react-icons/fa";
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from "react-pro-sidebar";

@@ -91,5 +91,10 @@
         "confirmPass": "confirmPass",
         "newPass": "New pass word",
         "notConfirm": "Password incorrect, please try again"
+    },
+    "Breadcrumb": {
+        "home": "Home",
+        "user": "User",
+        "quiz": "Quiz"
     }
 }

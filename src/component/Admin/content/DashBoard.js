@@ -18,7 +18,6 @@ import { getOverView } from "../../../services/apiServices";
 function DashBoard() {
     const [dataOverView, setDataOverView] = useState([]);
     const { t } = useTranslation();
-
     const data = [
         {
             name: t("dashBoard.title6"),

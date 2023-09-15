@@ -6,6 +6,10 @@ import Question from "./Question";
 import { ModalResult } from "./ModalResult";
 import ContentRight from "./content/ContentRight";
 
+import Breadcrumb from "react-bootstrap/Breadcrumb";
+import routes from "../../configs/Configs";
+import { useTranslation } from "react-i18next";
+
 function DetailQuiz() {
     const location = useLocation();
     const [quizQuestion, setQuizQuestion] = useState([]);
@@ -13,6 +17,7 @@ function DetailQuiz() {
     const [isShowModalResult, setIsShowModalResult] = useState(false);
     const [dataAnswersResult, setDataAnswersResult] = useState([]);
     const params = useParams();
+    const { t } = useTranslation();
     const quizId = params.id;
     useEffect(() => {
         getQuestionQuizId();
@@ -127,34 +132,41 @@ function DetailQuiz() {
 
     return (
         <div className="detail__wrap">
-            <div className="detail__questions">
-                <h2 className="question__title">
-                    {" "}
-                    Quiz: {quizId} {location?.state?.titleQuiz}.
-                </h2>
+            <Breadcrumb className="Breadcrumb_detail-quiz ">
+                <Breadcrumb.Item href={routes.home}>{t("Breadcrumb.home")}</Breadcrumb.Item>
+                <Breadcrumb.Item href={routes.user}>{t("Breadcrumb.user")}</Breadcrumb.Item>
+                <Breadcrumb.Item active>{t("Breadcrumb.quiz")} </Breadcrumb.Item>
+            </Breadcrumb>
+            <div className="detail__content">
+                <div className="detail__questions">
+                    <h2 className="question__title">
+                        {" "}
+                        Quiz: {quizId} {location?.state?.titleQuiz}.
+                    </h2>
 
-                <Question quizQuestion={quizQuestion} index={index} handleCheckbox={handleCheckbox} />
+                    <Question quizQuestion={quizQuestion} index={index} handleCheckbox={handleCheckbox} />
 
-                <div className="next__wrap">
-                    <button onClick={handlePrev} className="btn btn-outline-danger btn-lg">
-                        Back
-                    </button>
-                    <button onClick={handleNext} className="btn btn-outline-danger btn-lg">
-                        Next
-                    </button>
-                    <button onClick={handleFinish} className="btn btn-danger btn-lg">
-                        Finish
-                    </button>
+                    <div className="next__wrap">
+                        <button onClick={handlePrev} className="btn btn-outline-danger btn-lg">
+                            Back
+                        </button>
+                        <button onClick={handleNext} className="btn btn-outline-danger btn-lg">
+                            Next
+                        </button>
+                        <button onClick={handleFinish} className="btn btn-danger btn-lg">
+                            Finish
+                        </button>
+                    </div>
                 </div>
+                <div className="detail__answer">
+                    <ContentRight quizQuestion={quizQuestion} handleFinish={handleFinish} setIndex={setIndex} />
+                </div>
+                <ModalResult
+                    show={isShowModalResult}
+                    setShow={setIsShowModalResult}
+                    dataAnswersResult={dataAnswersResult}
+                />
             </div>
-            <div className="detail__answer">
-                <ContentRight quizQuestion={quizQuestion} handleFinish={handleFinish} setIndex={setIndex} />
-            </div>
-            <ModalResult
-                show={isShowModalResult}
-                setShow={setIsShowModalResult}
-                dataAnswersResult={dataAnswersResult}
-            />
         </div>
     );
 }

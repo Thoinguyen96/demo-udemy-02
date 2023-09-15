@@ -4,19 +4,17 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import routes from "../../configs/Configs";
 import { useSelector } from "react-redux";
+import { FaReact } from "react-icons/fa";
 
 import Language from "./Language";
 import { useTranslation } from "react-i18next";
 import LogOut from "./LogOut";
 import ModalProfile from "./ModalProfile";
-import { useEffect, useState } from "react";
-import { getAllUser } from "../../services/apiServices";
+import { useState } from "react";
 
 function Header() {
     const { t } = useTranslation();
     const [show, setShow] = useState(false);
-    // const [infoUser, setInfoUser] = useState(false);
-
     const isAuthenticalted = useSelector((state) => state.user.isAuthenticalted);
     const handleShowModalProfile = () => {
         setShow(true);
@@ -30,7 +28,10 @@ function Header() {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <NavLink className="navbar-text" to={routes.home}>
-                                {t("header.title1")}
+                                <div className="logo_wrap-home">
+                                    <FaReact className="navbar-icon-react" />
+                                    {t("header.title1")}
+                                </div>
                             </NavLink>
                             <NavLink className="navbar-text" to={routes.user}>
                                 {t("header.title2")}

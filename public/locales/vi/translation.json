@@ -97,5 +97,10 @@
         "confirmPass": "Nhập lại Mật khẩu",
         "newPass": "Mật khẩu mới",
         "notConfirm": "Nhập lại mật khẩu không chính xác"
+    },
+    "Breadcrumb": {
+        "home": "Trang chủ",
+        "user": "Tài khoản",
+        "quiz": "Bài kiểm tra"
     }
 }

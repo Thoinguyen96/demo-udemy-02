@@ -10,7 +10,7 @@ import { BrowserRouter } from "react-router-dom";
 import GlobalStyle from "./component/GlobalStyle/GlobalStyle.js";
 import { persistor } from "./redux/store";
 import "react-awesome-lightbox/build/style.css";
-import i18n from "./utils/i18n";
+import i18n from "./utils/i18n"; //change language
 import { Suspense } from "react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

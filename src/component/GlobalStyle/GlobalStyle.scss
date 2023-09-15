@@ -223,9 +223,7 @@ video.video {
         transform: rotate(360deg);
     }
 }
-.list__quiz {
-    margin-top: 60px;
-}
+
 .not-found {
     align-items: center;
     justify-content: center;
@@ -282,6 +280,18 @@ body::-webkit-scrollbar-thumb:hover {
         font-size: 4rem;
         animation: spin 4s linear infinite;
         padding: 0;
+    }
+}
+.container {
+    .navbar-icon-react {
+        font-size: 2rem;
+        animation: spin 4s linear infinite;
+        padding: 0;
+    }
+    .logo_wrap-home {
+        display: flex;
+        align-items: center;
+        gap: 5px;
     }
 }
 

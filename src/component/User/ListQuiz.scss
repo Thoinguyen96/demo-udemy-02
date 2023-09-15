@@ -1,5 +1,5 @@
 .list__quiz {
-    margin: 60px 60px 0 60px;
+    margin: 30px 60px 0 60px;
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
@@ -10,116 +10,127 @@
 }
 
 .detail__wrap {
-    display: flex;
-    margin: 0 165px;
-    padding-top: 20px;
-    background-color: #f3f7fa;
-    height: 1000px;
-    gap: 35px;
-    .detail__questions {
-        border: 1px solid #ccc;
-        flex-direction: column;
+    .Breadcrumb_detail-quiz {
+        margin: 30px 0 0px 165px;
+    }
+    .detail__content {
         display: flex;
-        width: 60%;
-    }
-    .detail__answer {
-        width: 40%;
-    }
+        margin: 0 165px;
+        padding-top: 20px;
+        background-color: #f3f7fa;
+        height: 1000px;
+        gap: 35px;
+        .detail__questions {
+            border: 1px solid #ccc;
+            flex-direction: column;
+            display: flex;
+            width: 60%;
+        }
+        .detail__answer {
+            width: 40%;
+        }
 
-    .next__wrap {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 30px;
-        margin-top: 50px;
-    }
-    .image__question img {
-        height: 100%;
-    }
-    .answer__quiz {
-        margin-top: 20px;
-        gap: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-    }
-    .answer__selector {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-    }
-    .answer-lb {
-        user-select: none;
-        margin-bottom: 0;
-    }
-    .check-input {
-        width: 20px;
-        height: 20px;
-    }
-    h2.question__title {
-        padding: 20px;
-        background: var(--color__default);
-        color: #fff;
-    }
-    .image__question {
-        height: 200px;
-        text-align: center;
-    }
-    .answer__question {
-        margin: 0 auto;
-    }
-    .answer__wrap {
-        text-align: center;
-    }
-    .content__right-wrap {
-        border: 1px solid #ccc;
-
-        width: 100%;
-        .content__right {
-            background-color: var(--color__default);
+        .next__wrap {
+            display: flex;
             align-items: center;
-            padding: 10px;
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-            .content__right-icon {
-                cursor: pointer;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-        .question {
             justify-content: center;
-            flex-wrap: wrap;
-            padding: 15px 0;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .image__question img {
+            height: 100%;
+        }
+        .answer__quiz {
+            margin-top: 20px;
+            gap: 10px;
             display: flex;
-            gap: 27px;
+            flex-direction: column;
+            align-items: start;
+        }
+        .answer__selector {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .answer-lb {
+            user-select: none;
+            margin-bottom: 0;
+        }
+        .check-input {
+            width: 20px;
+            height: 20px;
+        }
+        h2.question__title {
+            padding: 20px;
+            background: var(--color__default);
+            color: #fff;
+        }
+        .image__question {
+            height: 200px;
+            text-align: center;
+        }
+        .answer__question {
+            margin: 0 auto;
+        }
+        .answer__wrap {
+            text-align: center;
+        }
+        .content__right-wrap {
+            border: 1px solid #ccc;
 
-            .question__each {
-                cursor: pointer;
-                border: 1px solid #ccc;
+            width: 100%;
+            .content__right {
+                background-color: var(--color__default);
                 align-items: center;
-                justify-content: center;
+                padding: 10px;
+                color: #fff;
                 display: flex;
-                width: 30px;
-                height: 30px;
-                user-select: none;
-                border-radius: 50%;
-                &:hover {
-                    color: var(--color__default);
+                justify-content: space-between;
+                .content__right-icon {
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
                 }
-                &.selected {
-                    background-color: #ccc;
-                }
-                &.click {
-                    color: var(--color__default);
-                }
-                &.click_on-selected {
-                    color: var(--color__default);
-                    background-color: #ccc;
+            }
+            .question {
+                justify-content: center;
+                flex-wrap: wrap;
+                padding: 15px 0;
+                display: flex;
+                gap: 27px;
+
+                .question__each {
+                    cursor: pointer;
+                    border: 1px solid #ccc;
+                    align-items: center;
+                    justify-content: center;
+                    display: flex;
+                    width: 30px;
+                    height: 30px;
+                    user-select: none;
+                    border-radius: 50%;
+                    &:hover {
+                        color: var(--color__default);
+                    }
+                    &.selected {
+                        background-color: #ccc;
+                    }
+                    &.click {
+                        color: var(--color__default);
+                    }
+                    &.click_on-selected {
+                        color: var(--color__default);
+                        background-color: #ccc;
+                    }
                 }
             }
         }
+    }
+}
+
+.list__quiz__wrapper {
+    .Breadcrumb {
+        margin: 30px 0 0 60px;
     }
 }

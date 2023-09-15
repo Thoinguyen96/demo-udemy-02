@@ -11,7 +11,6 @@ import ConfigLayout from "../component/Layout/ConfigLayout"; // temporarily not 
 
 import LogIn from "../component/pages/LogIn";
 import SignUp from "../component/pages/SideUp";
-import AuthLayout from "../component/Layout/AuthLayout";
 import NotFound from "../component/pages/NotFound";
 import DetailQuiz from "../component/User/DetailQuiz";
 import QuizManage from "../component/Admin/content/quiz/QuizManage";
@@ -22,22 +21,19 @@ import DashBoardLayout from "../component/Layout/DashBoardLayout";
 
 const publicRoutes = [
     { path: routes.manageUser, component: ManageUser, layout: DashBoardLayout },
-    { path: routes.quiz, component: QuizManage, layout: DashBoardLayout },
     { path: routes.admin, component: Admin, layout: DashBoardLayout },
+    { path: routes.user, component: User, layout: PrivateLayout }, //layout not logged in yet
 
+    { path: routes.quiz, component: QuizManage, layout: DashBoardLayout },
     { path: routes.dashBoard, component: DashBoard, layout: DashBoardLayout },
-
     { path: routes.manageQuestion, component: ManageQuestion, layout: DashBoardLayout },
 
     { path: routes.home, component: Home },
-    { path: routes.user, component: User, layout: PrivateLayout }, //layout not logged in yet
 
-    { path: routes.login, component: LogIn, layout: AuthLayout },
-    { path: routes.signUp, component: SignUp, layout: AuthLayout },
-    { path: routes.notFound, component: NotFound, layout: AuthLayout },
-    { path: routes.detailQuiz, component: DetailQuiz, layout: AuthLayout },
-
-    // { path: config.routes.search, component: Search, layout: null },
+    { path: routes.login, component: LogIn, layout: null },
+    { path: routes.signUp, component: SignUp, layout: null },
+    { path: routes.notFound, component: NotFound, layout: null },
+    { path: routes.detailQuiz, component: DetailQuiz, layout: null }, // layout null => page empty
 ];
 const privateRoutes = [];
 export { publicRoutes, privateRoutes };
