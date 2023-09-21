@@ -10,7 +10,6 @@ function Question(props) {
     if (_.isEmpty(quizQuestions)) {
         return;
     }
-
     return (
         <div>
             {quizQuestions.image ? (

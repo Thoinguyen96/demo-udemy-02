@@ -9,7 +9,7 @@ export function TableUserPaginate(props) {
     };
     return (
         <>
-            <table className="table table-bordered table-hover">
+            <table className="table table-bordered  table-hover">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -53,7 +53,7 @@ export function TableUserPaginate(props) {
                 onPageChange={handlePageClick}
                 pageRangeDisplayed={3}
                 marginPagesDisplayed={2}
-                pageCount={props.pageCount}
+                pageCount={+props.pageCount}
                 previousLabel="< previous"
                 pageClassName="page-item"
                 pageLinkClassName="page-link"

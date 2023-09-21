@@ -229,7 +229,11 @@ video.video {
     justify-content: center;
     height: 100vh;
     display: flex;
+    .img_not-found {
+        width: 30%;
+    }
 }
+
 /* width */
 body::-webkit-scrollbar {
     border-radius: 0;

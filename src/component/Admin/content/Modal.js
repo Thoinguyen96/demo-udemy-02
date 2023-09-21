@@ -23,10 +23,11 @@ export function Example(props) {
     };
     const handleSave = async () => {
         const isvalidateEmail = validateEmail(email);
-        if (!isvalidateEmail && !password) {
+
+        if (isvalidateEmail === false && !password) {
             toast.error("Invalid Email and Password");
             return;
-        } else if (!isvalidateEmail) {
+        } else if (isvalidateEmail === false) {
             toast.error("Invalid Email");
             return;
         }
@@ -34,7 +35,6 @@ export function Example(props) {
             toast.error("Invalid password");
             return;
         }
-
         let data = await postCreateNewUser(email, password, userName, role, image);
         if (data && data.EC === 0) {
             toast.success(data.EM);
@@ -47,12 +47,14 @@ export function Example(props) {
             toast.error(data.EM);
         }
     };
+
     const validateEmail = (email) => {
         return String(email)
             .toLowerCase()
             .match(
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
+        // console.log đoạn code ra sẽ hiểu
     };
     const handlePreviewImage = (even) => {
         // chỗ này chưa làm logic lỗi quay lại kiểm tra
@@ -77,7 +79,7 @@ export function Example(props) {
                                     type="email"
                                     className="form-control"
                                     value={email}
-                                    onChange={(even) => setEmail(even.target.value)}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                             <div className="col-md-6">

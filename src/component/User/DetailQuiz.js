@@ -17,15 +17,14 @@ function DetailQuiz() {
     const [index, setIndex] = useState(0);
     const [isShowModalResult, setIsShowModalResult] = useState(false);
     const [dataAnswersResult, setDataAnswersResult] = useState([]);
-    const params = useParams();
+    const { id } = useParams(); //id the value of object
     const { t } = useTranslation();
-    const quizId = params.id;
     useEffect(() => {
         getQuestionQuizId();
-    }, [quizId]);
+    }, [id]);
 
     const getQuestionQuizId = async () => {
-        const res = await getQuizId(quizId);
+        const res = await getQuizId(id);
         if (res && res.EC === 0) {
             let raw = res.DT;
             let data = _.chain(raw)
@@ -98,7 +97,7 @@ function DetailQuiz() {
 
     const handleFinish = async () => {
         let payLoad = {
-            quizId: +quizId,
+            quizId: +id,
             answers: [],
         };
 
@@ -127,7 +126,7 @@ function DetailQuiz() {
                 countTotal: response.DT.countTotal,
             });
         } else {
-            alert("lỗi rồi mày");
+            alert("error    ");
         }
     };
 
@@ -142,7 +141,7 @@ function DetailQuiz() {
                 <div className="detail__questions">
                     <h2 className="question__title">
                         {" "}
-                        Quiz: {quizId} {location?.state?.titleQuiz}.
+                        Quiz: {id} {location?.state?.titleQuiz}.
                     </h2>
                     <Question quizQuestion={quizQuestion} index={index} handleCheckbox={handleCheckbox} />
 
@@ -159,7 +158,12 @@ function DetailQuiz() {
                     </div>
                 </div>
                 <div className="detail__answer">
-                    <ContentRight quizQuestion={quizQuestion} handleFinish={handleFinish} setIndex={setIndex} />
+                    <ContentRight
+                        getQuestionQuizId={getQuestionQuizId}
+                        quizQuestion={quizQuestion}
+                        handleFinish={handleFinish}
+                        setIndex={setIndex}
+                    />
                 </div>
                 <ModalResult
                     show={isShowModalResult}

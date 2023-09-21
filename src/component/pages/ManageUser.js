@@ -14,7 +14,7 @@ function ManageUser() {
     const [dataUserUpdate, setDataUserUpdate] = useState({});
     const [dataViewUser, setDataViewUser] = useState({});
     const [dataDeleteUser, setDataDeleteUser] = useState({});
-    const [pageCount, setPageCount] = useState(0);
+    const [pageCount, setPageCount] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const [showModalDeleteUser, setShowModalDeleteUser] = useState(false);
     const LIMIT_USER = 5;

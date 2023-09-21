@@ -1,10 +1,36 @@
 import { AiOutlineCheck } from "react-icons/ai";
 import { BsArrowCounterclockwise } from "react-icons/bs";
-import CountDown from "./CountDown";
 import { useRef } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 function ContentRight(props) {
-    const { quizQuestion, handleFinish, setIndex } = props;
+    const { quizQuestion, handleFinish, setIndex, getQuestionQuizId } = props;
     const classRef = useRef([]);
+    const [count, setCount] = useState(60); //60s
+    const [time, setTime] = useState(3); //total time (phút)
+    useEffect(() => {
+        if (time === 0 && count === 0) {
+            handleFinish();
+            return () => {
+                clearTimeout();
+            };
+        }
+
+        const countDown = setTimeout(() => {
+            setCount(count - 1);
+            if (count - 1 < 0) {
+                setTime(time - 1);
+                setCount(59);
+                return () => {
+                    clearTimeout(countDown);
+                };
+            }
+        }, 1000);
+
+        return () => {
+            clearTimeout(countDown);
+        };
+    }, [count, time]);
 
     const handleClassSelector = (ques) => {
         if (ques.answers && ques.answers.length > 0) {
@@ -38,15 +64,25 @@ function ContentRight(props) {
             }
         }
     };
+    const remakeQuiz = () => {
+        setCount(59);
+        setTime(3);
+        getQuestionQuizId();
+    };
+    const handleMark = () => {
+        handleFinish();
+    };
     return (
         <div className="content__right-wrap">
             <div className="content__right">
-                <div className="content__right-icon">
+                <div onClick={handleMark} className="content__right-icon">
                     <AiOutlineCheck />
                     <span>Chấm điểm</span>
                 </div>
-                <CountDown handleFinish={handleFinish} />
-                <div className="content__right-icon">
+                <span>
+                    {time} : {count}
+                </span>
+                <div onClick={remakeQuiz} className="content__right-icon">
                     <BsArrowCounterclockwise />
                     <span>Làm lại</span>
                 </div>
