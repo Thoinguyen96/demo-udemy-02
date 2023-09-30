@@ -1,11 +1,12 @@
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { postLogOut } from "../../services/apiServices";
 import { toast } from "react-toastify";
-import { doLogOut } from "../../redux/action/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import routes from "../../configs/Configs";
 import { useTranslation } from "react-i18next";
+import { doLogOut } from "../../redux/action/userAction";
+// import { doLogOut } from "../../reduxToolkit/userSlice";
 
 function LogOut(props) {
     const { handleShowModalProfile } = props;

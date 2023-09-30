@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 import routes from "../../configs/Configs";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { doLogin } from "../../redux/action/userAction";
+// import { doLogin } from "../../redux/action/userAction";
 import { ImSpinner2 } from "react-icons/im";
 import { delay } from "lodash";
 import React, { useRef } from "react";
 import LoadingBar from "react-top-loading-bar";
+import { doLogin } from "../../reduxToolkit/userSlice";
 function Login() {
     const ref = useRef(null);
 

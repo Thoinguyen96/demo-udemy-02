@@ -3,7 +3,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
@@ -12,6 +11,8 @@ import { persistor } from "./redux/store";
 import "react-awesome-lightbox/build/style.css";
 import i18n from "./utils/i18n"; //change language
 import { Suspense } from "react";
+// import { store, persistor } from "./reduxToolkit/store";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

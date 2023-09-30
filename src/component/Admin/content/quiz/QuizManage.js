@@ -60,6 +60,7 @@ function QuizManage(props) {
     }, []);
     const fetchAllQuiz = async () => {
         const res = await getAllDataQuiz();
+        console.log(res);
         if (res && res.EC === 0) {
             setListQuiz(res.DT);
         } else {
