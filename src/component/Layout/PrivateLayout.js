@@ -3,7 +3,7 @@ import routes from "../../configs/Configs";
 import { useSelector } from "react-redux";
 
 function PrivateLayout({ children }) {
-    const isAuthenticalted = useSelector((state) => state.user.isAuthenticalted);
+    const isAuthenticalted = useSelector((state) => state.auth.isAuthenticalted);
     if (!isAuthenticalted) {
         return <Navigate to={routes.login}></Navigate>;
     }

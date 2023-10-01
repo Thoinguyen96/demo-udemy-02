@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 import routes from "../../configs/Configs";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { doLogin } from "../../redux/action/userAction";
+// import { doLogin } from "../../redux/action/userAction";
 import { ImSpinner2 } from "react-icons/im";
 import { delay } from "lodash";
 import React, { useRef } from "react";
 import LoadingBar from "react-top-loading-bar";
+import { LogInError, LogInRequest, LogInSuccess, fetchPostLogIn } from "../../reduxToolkit/userAuth";
 function Login() {
     const ref = useRef(null);
 
@@ -19,18 +20,21 @@ function Login() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const handleLogIn = async () => {
+        dispatch(LogInRequest());
         ref.current.continuousStart();
         setLoading(true);
         const data = await postLogin(email, password);
         if (data && data.EC === 0) {
-            dispatch(doLogin(data));
+            dispatch(LogInSuccess(data));
+
             toast.success(data.EM);
             navigate("/");
             setLoading(false);
-        }
-        if (data && data.EC !== 0) {
-            toast.error(data.EM);
-            setLoading(false);
+            if (data && data.EC !== 0) {
+                toast.error(data.EM);
+                setLoading(false);
+                dispatch(LogInError());
+            }
         }
     };
     const handleKeydown = (e) => {

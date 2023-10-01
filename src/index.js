@@ -4,7 +4,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+// import { store } from "./redux/store";
+import { store } from "./reduxToolkit/store";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
 import GlobalStyle from "./component/GlobalStyle/GlobalStyle.js";

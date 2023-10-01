@@ -1,12 +1,19 @@
 import VideoHome from "../../assets/Videos/video-homepage.mp4";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import routes from "../../configs/Configs";
 import { useTranslation, Trans } from "react-i18next";
+import { useEffect } from "react";
+import { fetchAllUser } from "../../reduxToolkit/userSlice";
 function Home() {
-    const isAuthenticalted = useSelector((state) => state.user.isAuthenticalted);
+    const isAuthenticalted = useSelector((state) => state.auth.isAuthenticalted);
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const disPatch = useDispatch();
+
+    useEffect(() => {
+        disPatch(fetchAllUser());
+    }, []);
     return (
         <div className="home-container">
             <video className="video" autoPlay muted loop>

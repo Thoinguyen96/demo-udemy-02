@@ -15,7 +15,7 @@ import { useState } from "react";
 function Header() {
     const { t } = useTranslation();
     const [show, setShow] = useState(false);
-    const isAuthenticalted = useSelector((state) => state.user.isAuthenticalted);
+    const isAuthenticalted = useSelector((state) => state.auth.isAuthenticalted);
     const handleShowModalProfile = () => {
         setShow(true);
     };
